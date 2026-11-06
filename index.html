@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ôn tập giữa kì 1 – Anh, Hoá, Sinh & Lí 11</title>
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#040711;
+  --card:rgba(15,23,42,.74);
+  --card-hi:rgba(30,41,59,.82);
+  --bd:rgba(148,163,184,.16);
+  --txt:#f1f5f9;
+  --mut:#94a3b8;
+  --acc:#38bdf8;
+  --em:#10b981;
+  --pk:#ec4899;
+  --vi:#8b5cf6;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{min-height:100%;margin:0}
+body{
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  color:var(--txt);
+  background:var(--bg);
+  overflow-x:hidden;
+}
+
+/* COSMIC AURORA BACKGROUND */
+.bg-fx{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bg-fx::before{
+  content:"";position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(148,163,184,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(148,163,184,.045) 1px,transparent 1px);
+  background-size:36px 36px;
+  mask-image:radial-gradient(ellipse at 50% 35%,black 30%,transparent 85%);
+  -webkit-mask-image:radial-gradient(ellipse at 50% 35%,black 30%,transparent 85%);
+}
+.orb{
+  position:absolute;border-radius:50%;filter:blur(90px);opacity:.42;
+  animation:drift 18s ease-in-out infinite alternate;
+}
+.orb.o1{width:380px;height:380px;background:#0d9488;top:-90px;left:-80px}
+.orb.o2{width:420px;height:420px;background:#4f46e5;top:18%;right:-120px;animation-delay:-6s}
+.orb.o3{width:360px;height:360px;background:#be185d;bottom:-100px;left:22%;animation-delay:-12s}
+@keyframes drift{
+  0%{transform:translate(0,0) scale(1)}
+  100%{transform:translate(35px,-28px) scale(1.12)}
+}
+
+.w{position:relative;z-index:1;max-width:780px;margin:0 auto;padding:16px 14px 52px}
+button{font:inherit;color:inherit;cursor:pointer;transition:all .18s cubic-bezier(.2,.8,.2,1)}
+
+/* TOP NAVBAR */
+.nav{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  background:rgba(10,16,32,.78);border:1px solid var(--bd);
+  border-radius:18px;padding:10px 14px;margin-bottom:14px;
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  box-shadow:0 10px 28px -10px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.1);
+}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-ic{
+  width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;background:linear-gradient(135deg,#0ea5e9,#10b981);
+  box-shadow:0 4px 14px rgba(14,165,233,.35);
+}
+.brand-txt b{display:block;font-size:1.02rem;letter-spacing:-.2px;color:#fff}
+.brand-txt small{display:block;font-size:.73rem;color:#7dd3fc}
+
+.prof-pill{
+  display:flex;align-items:center;gap:8px;
+  background:rgba(30,41,59,.7);border:1px solid rgba(148,163,184,.25);
+  border-radius:99px;padding:4px 11px 4px 5px;max-width:190px;
+}
+.prof-pill:hover{border-color:#38bdf8;background:rgba(30,41,59,.95)}
+.prof-av{
+  width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.15rem;background:linear-gradient(135deg,#0284c7,#7c3aed);flex-shrink:0;overflow:hidden;
+}
+.av-img-inline{width:100%;height:100%;object-fit:cover;display:block}
+.prof-pill span{font-size:.82rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* SEGMENTED MODE BAR */
+.seg{
+  display:grid;grid-template-columns:1fr 1fr;gap:6px;
+  background:rgba(9,14,26,.82);border:1px solid var(--bd);
+  border-radius:16px;padding:5px;margin-bottom:14px;
+  box-shadow:inset 0 2px 6px rgba(0,0,0,.6);
+}
+.seg-b{
+  border:0;border-radius:12px;padding:10px 10px;background:transparent;text-align:center;
+}
+.seg-b b{display:block;font-size:.9rem}
+.seg-b small{display:block;font-size:.72rem;color:var(--mut);margin-top:1px}
+.seg-b.on-hard{
+  background:linear-gradient(135deg,#0284c7,#0d9488);color:#fff;
+  box-shadow:0 4px 14px rgba(14,165,233,.35),inset 0 1px 0 rgba(255,255,255,.25);
+}
+.seg-b.on-hard small{color:#e0f2fe}
+.seg-b.on-bede{
+  background:linear-gradient(135deg,#db2777,#7c3aed);color:#fff;
+  box-shadow:0 4px 14px rgba(219,39,119,.35),inset 0 1px 0 rgba(255,255,255,.25);
+}
+.seg-b.on-bede small{color:#fce7f3}
+
+/* GLASS CARD */
+.c{
+  background:linear-gradient(165deg,var(--card-hi) 0%,var(--card) 100%);
+  border:1px solid var(--bd);
+  border-top-color:rgba(255,255,255,.18);
+  border-radius:20px;padding:16px;margin-bottom:14px;
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  box-shadow:0 16px 34px -12px rgba(2,6,23,.85),inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+/* HERO SOLO ARENA BANNER */
+.arena{
+  background:linear-gradient(135deg,rgba(30,27,75,.88) 0%,rgba(88,28,135,.55) 55%,rgba(157,23,77,.45) 100%);
+  border:1px solid rgba(236,72,153,.4);
+  box-shadow:0 14px 32px -10px rgba(168,85,247,.35),inset 0 1px 1px rgba(255,255,255,.2);
+}
+.arena-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.arena-tag{
+  font-size:.72rem;font-weight:800;letter-spacing:.8px;padding:4px 10px;border-radius:99px;
+  background:linear-gradient(90deg,#ec4899,#8b5cf6);color:#fff;
+}
+.arena-sub{font-size:.84rem;color:#e2e8f0;margin:0 0 12px;line-height:1.45}
+.arena-acts{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.abtn{
+  border:0;border-radius:13px;padding:11px 12px;font-weight:700;font-size:.9rem;
+  display:flex;align-items:center;justify-content:center;gap:7px;
+}
+.abtn.pri{background:linear-gradient(135deg,#ec4899,#8b5cf6);color:#fff;box-shadow:0 6px 18px rgba(236,72,153,.35)}
+.abtn.sec{background:rgba(15,23,42,.75);border:1px solid rgba(244,114,182,.35);color:#fbcfe8}
+.abtn:hover{filter:brightness(1.1);transform:translateY(-1.5px)}
+
+/* BENTO 2x2 SUBJECT GRID */
+.sec-lbl{
+  font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;
+  color:#94a3b8;margin:4px 2px 10px;display:flex;align-items:center;justify-content:space-between;
+}
+.bento{display:grid;grid-template-columns:1fr;gap:11px;margin-bottom:14px}
+@media(min-width:540px){.bento{grid-template-columns:1fr 1fr}}
+.sj-card{
+  display:flex;flex-direction:column;justify-content:space-between;gap:12px;
+  text-align:left;padding:16px;border-radius:20px;position:relative;overflow:hidden;
+  background:linear-gradient(160deg,rgba(30,41,59,.82),rgba(15,23,42,.92));
+  border:1px solid rgba(148,163,184,.18);border-top-color:rgba(255,255,255,.2);
+  box-shadow:0 12px 26px -10px rgba(0,0,0,.75);
+}
+.sj-card:hover{transform:translateY(-3px);border-color:var(--ac,#38bdf8);box-shadow:0 16px 32px -10px rgba(14,165,233,.28)}
+.sj-card:active{transform:translateY(1px)}
+.sj-row{display:flex;align-items:center;gap:12px}
+.sj-ic{
+  width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+  font-size:1.55rem;flex-shrink:0;
+  background:rgba(15,23,42,.85);border:1px solid rgba(255,255,255,.12);
+}
+.sj-title b{display:block;font-size:1.06rem;color:#fff}
+.sj-title small{display:block;font-size:.76rem;color:#94a3b8;margin-top:2px}
+.sj-foot{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:9px;border-top:1px solid rgba(148,163,184,.12);font-size:.78rem;
+}
+.sj-best{color:#fbbf24;font-weight:700}
+.sj-cnt{
+  background:rgba(56,189,248,.14);color:#7dd3fc;border:1px solid rgba(56,189,248,.28);
+  padding:3px 10px;border-radius:99px;font-weight:700;
+}
+
+/* LEADERBOARD */
+.rank-card{
+  background:linear-gradient(155deg,rgba(15,23,42,.92),rgba(6,78,59,.36));
+  border:1px solid rgba(52,211,153,.32);
+}
+.rank-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.rank-badge{
+  font-size:.74rem;font-weight:800;letter-spacing:.7px;padding:4px 10px;border-radius:99px;
+  background:linear-gradient(90deg,#059669,#0284c7);color:#fff;
+}
+.live-dot{
+  font-size:.76rem;font-weight:700;color:#6ee7b7;
+  background:rgba(6,95,70,.45);padding:4px 10px;border-radius:99px;border:1px solid rgba(52,211,153,.3);
+}
+.rank-chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:10px}
+.rank-chip{
+  border:1px solid rgba(148,163,184,.2);background:rgba(15,23,42,.75);
+  border-radius:10px;padding:6px 11px;font-size:.77rem;font-weight:600;color:#cbd5e1;white-space:nowrap;
+}
+.rank-chip.on{background:linear-gradient(135deg,#059669,#0284c7);color:#fff;border-color:#34d399}
+.rank-list{display:flex;flex-direction:column;gap:7px}
+.rank-item{
+  display:flex;align-items:center;gap:10px;padding:8px 11px;border-radius:13px;
+  background:rgba(15,23,42,.75);border:1px solid rgba(148,163,184,.14);
+}
+.rank-item.top1{border-color:#fbbf24;background:linear-gradient(145deg,rgba(113,63,18,.35),rgba(15,23,42,.85))}
+.rank-item.top2{border-color:#94a3b8}
+.rank-item.top3{border-color:#d97706}
+.rank-pos{width:26px;font-size:1rem;font-weight:900;text-align:center;color:#94a3b8;flex-shrink:0}
+.rank-item.top1 .rank-pos{color:#fde047;font-size:1.18rem}
+.rank-av{
+  width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;background:rgba(30,41,59,.9);border:1px solid rgba(255,255,255,.14);flex-shrink:0;overflow:hidden;
+}
+.rank-info{flex:1;overflow:hidden}
+.rank-name{font-size:.85rem;font-weight:700;color:#f8fafc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rank-sub{font-size:.72rem;color:#94a3b8}
+.rank-score{font-size:1rem;font-weight:800;color:#34d399;text-align:right;white-space:nowrap}
+.rank-score small{display:block;font-size:.66rem;color:#94a3b8;font-weight:500}
+
+/* CHIPS & BUTTONS */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 16px}
+.chip{
+  border:1px solid rgba(148,163,184,.25);background:rgba(15,23,42,.78);
+  border-radius:12px;padding:9px 14px;font-size:.88rem;font-weight:500;color:#cbd5e1;
+}
+.chip.on{
+  background:linear-gradient(135deg,#0284c7,#0d9488);color:#fff;
+  border-color:rgba(125,211,252,.5);box-shadow:0 4px 14px rgba(14,165,233,.35);
+}
+.go,.nx{
+  background:linear-gradient(135deg,#0ea5e9 0%,#0d9488 100%);
+  border:1px solid rgba(125,211,252,.4);border-bottom:3px solid #0f766e;
+  border-radius:14px;padding:13px;width:100%;font-weight:700;font-size:1rem;color:#fff;
+  box-shadow:0 8px 22px -6px rgba(14,165,233,.45);
+}
+.nx.bede{
+  background:linear-gradient(135deg,#ec4899 0%,#8b5cf6 100%);
+  border-color:rgba(244,114,182,.5);border-bottom-color:#6d28d9;
+}
+.go:active,.nx:active{transform:translateY(2px);border-bottom-width:1px}
+.back{
+  background:rgba(30,41,59,.75);border:1px solid rgba(148,163,184,.22);
+  color:#7dd3fc;padding:7px 14px;border-radius:99px;margin-bottom:10px;font-weight:600;font-size:.86rem;
+}
+
+/* QUIZ ARENA */
+.top{
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;
+  font-size:.84rem;color:#cbd5e1;gap:8px;
+  background:rgba(10,16,32,.82);border:1px solid var(--bd);
+  padding:8px 13px;border-radius:13px;
+}
+.bar{
+  height:8px;background:rgba(9,14,26,.9);border-radius:99px;overflow:hidden;
+  margin:9px 0 14px;padding:1.5px;
+}
+.bar i{
+  display:block;height:100%;border-radius:99px;
+  background:linear-gradient(90deg,#38bdf8,#10b981);transition:width .35s ease;
+}
+.bar i.bede{background:linear-gradient(90deg,#f472b6,#a855f7,#38bdf8)}
+.q{font-size:1.08rem;line-height:1.58;margin:0 0 15px;white-space:pre-line;color:#f8fafc;font-weight:500}
+.o{
+  display:flex;align-items:center;gap:12px;width:100%;text-align:left;
+  background:linear-gradient(170deg,rgba(36,49,70,.75) 0%,rgba(17,26,43,.9) 100%);
+  border:1px solid rgba(148,163,184,.2);border-bottom:3px solid rgba(6,10,20,.85);
+  border-radius:14px;padding:12px 14px;margin-bottom:9px;min-height:50px;line-height:1.45;
+}
+.o:hover{border-color:rgba(56,189,248,.45);transform:translateY(-1px)}
+.o:active{transform:translateY(2px);border-bottom-width:1px}
+.k{
+  width:29px;height:29px;border-radius:9px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:.88rem;color:#7dd3fc;
+  background:rgba(10,16,32,.85);border:1px solid rgba(125,211,252,.25);
+}
+.ot{flex:1;color:#e2e8f0}
+.o.ok{background:linear-gradient(165deg,rgba(6,95,70,.68),rgba(4,47,46,.88));border-color:#10b981;border-bottom-color:#065f46}
+.o.ok .k{background:#10b981;color:#022c22;border-color:#6ee7b7}
+.o.no{background:linear-gradient(165deg,rgba(127,29,29,.68),rgba(69,10,10,.88));border-color:#ef4444;border-bottom-color:#7f1d1d}
+.o.no .k{background:#ef4444;color:#fff;border-color:#fca5a5}
+
+@keyframes popIn{0%{transform:scale(.86);opacity:0}100%{transform:scale(1);opacity:1}}
+.fb{
+  border-radius:15px;padding:13px 15px;margin:12px 0;text-align:center;
+  background:linear-gradient(165deg,rgba(127,29,29,.45),rgba(69,10,10,.65));
+  border:1.5px solid rgba(239,68,68,.6);line-height:1.5;
+  animation:popIn .22s cubic-bezier(.2,1.2,.3,1);
+}
+.fb.ok-fb{background:linear-gradient(165deg,rgba(6,95,70,.5),rgba(4,47,46,.72));border-color:#10b981}
+.r-img{
+  width:155px;height:155px;object-fit:cover;border-radius:15px;
+  display:block;margin:9px auto 6px;border:2px solid rgba(255,255,255,.28);
+  box-shadow:0 8px 22px rgba(0,0,0,.55);
+}
+
+/* ĐÚNG / SAI & TRẢ LỜI NGẮN */
+.ds-item{
+  background:rgba(15,23,42,.75);border:1px solid rgba(148,163,184,.18);
+  border-radius:14px;padding:12px;margin-bottom:9px;
+}
+.ds-item.ok{border-color:#10b981;background:rgba(6,95,70,.3)}
+.ds-item.no{border-color:#ef4444;background:rgba(127,29,29,.3)}
+.ds-txt{margin:0 0 9px;line-height:1.46;color:#e2e8f0}
+.ds-btns{display:flex;gap:8px}
+.ds-b{
+  flex:1;padding:8px;border-radius:10px;border:1px solid rgba(148,163,184,.25);
+  background:rgba(10,16,32,.7);font-weight:600;color:#cbd5e1;
+}
+.ds-b.sel{background:linear-gradient(135deg,#0284c7,#0d9488);border-color:#7dd3fc;color:#fff}
+.ds-b.ans{outline:2px solid #10b981}
+.sa-wrap{display:flex;gap:8px;margin:10px 0 6px}
+.sa-in{
+  flex:1;background:rgba(9,14,26,.88);border:1.5px solid rgba(148,163,184,.28);
+  border-radius:12px;padding:12px 14px;color:#fff;font-size:1.02rem;outline:none;
+}
+.sa-in:focus{border-color:#38bdf8}
+.sa-in.ok{border-color:#10b981;background:rgba(6,95,70,.35)}
+.sa-in.no{border-color:#ef4444;background:rgba(127,29,29,.35)}
+.sa-btn{
+  background:linear-gradient(135deg,#0ea5e9,#0d9488);border:0;
+  border-radius:12px;padding:0 20px;font-weight:700;color:#fff;
+}
+.badge{
+  display:inline-block;font-size:.74rem;padding:4px 10px;border-radius:99px;
+  background:rgba(14,165,233,.16);border:1px solid rgba(56,189,248,.35);
+  color:#7dd3fc;margin-bottom:9px;font-weight:600;
+}
+.badge.bede{background:rgba(236,72,153,.18);border-color:rgba(244,114,182,.45);color:#f9a8d4}
+
+/* SOLO HUD */
+.pvp-hud{
+  display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;
+  background:rgba(9,14,26,.9);border:1px solid rgba(148,163,184,.2);border-radius:16px;
+  padding:10px 12px;margin-bottom:12px;
+}
+.pvp-user{display:flex;align-items:center;gap:9px}
+.pvp-user.opp{flex-direction:row-reverse;text-align:right}
+.pvp-av-hud{
+  width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;background:rgba(30,41,59,.85);border:1.5px solid rgba(255,255,255,.2);flex-shrink:0;overflow:hidden;
+}
+.pvp-meta{display:flex;flex-direction:column;flex:1;overflow:hidden}
+.pvp-name{font-size:.8rem;font-weight:700;color:#cbd5e1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pvp-score{font-size:1.2rem;font-weight:800}
+.pvp-user.me .pvp-score{color:#38bdf8}
+.pvp-user.opp .pvp-score{color:#ec4899}
+.pvp-bar{height:5px;background:rgba(255,255,255,.1);border-radius:99px;overflow:hidden;margin-top:2px}
+.pvp-bar i{display:block;height:100%;transition:width .25s ease-out}
+.pvp-bar.me i{background:#38bdf8}
+.pvp-bar.opp i{background:#ec4899;margin-left:auto}
+.pvp-vs{font-size:1.05rem;font-weight:900;color:#fbbf24}
+.pvp-noti{
+  font-size:.8rem;text-align:center;color:#fbcfe8;padding:6px;border-radius:10px;
+  background:rgba(236,72,153,.14);border:1px dashed rgba(236,72,153,.35);margin-bottom:10px;
+}
+
+/* FOOTER UTILS */
+.util-grid{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:600px){.util-grid{grid-template-columns:1.1fr .9fr}}
+.img-cfg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}
+.img-box{
+  background:rgba(9,14,26,.65);border:1px dashed rgba(148,163,184,.32);
+  border-radius:13px;padding:9px;text-align:center;font-size:.78rem;
+}
+.img-box img{width:62px;height:62px;object-fit:cover;border-radius:9px;display:block;margin:5px auto}
+.img-box label{
+  display:inline-block;margin-top:3px;padding:4px 9px;border-radius:8px;
+  background:rgba(14,165,233,.2);border:1px solid rgba(56,189,248,.4);
+  color:#7dd3fc;font-weight:600;cursor:pointer;font-size:.74rem;
+}
+.dn{text-align:center;border-color:rgba(250,204,21,.28)}
+.dn h2{margin:0 0 4px;font-size:1rem;color:#fde047}
+.dn p{margin:3px 0;color:#cbd5e1;font-size:.82rem}
+.dn .stk{
+  display:inline-block;padding:5px 14px;border-radius:10px;
+  background:rgba(9,14,26,.75);border:1px solid rgba(56,189,248,.25);
+  font-size:1.25rem;font-weight:800;letter-spacing:1.2px;color:#38bdf8;margin:6px 0;
+}
+.dn button{
+  border:1px solid rgba(250,204,21,.45);background:rgba(250,204,21,.1);
+  border-radius:99px;padding:6px 14px;margin-top:4px;font-weight:600;color:#fef08a;font-size:.8rem;
+}
+.av-preview-box{
+  display:flex;align-items:center;gap:14px;margin-bottom:14px;padding:12px;
+  background:rgba(9,14,26,.65);border-radius:16px;border:1px dashed rgba(148,163,184,.3);
+}
+.av-preview-box .prof-av{width:60px;height:60px;border-radius:16px;font-size:2rem}
+.upload-btn-label{
+  display:inline-flex;align-items:center;gap:6px;
+  background:linear-gradient(135deg,#0ea5e9,#0d9488);color:#fff;
+  padding:8px 14px;border-radius:11px;font-size:.82rem;font-weight:700;cursor:pointer;
+}
+.av-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:10px 0 16px}
+.av-opt{
+  width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;background:rgba(15,23,42,.75);border:1.5px solid rgba(148,163,184,.2);
+}
+.av-opt.sel{border-color:#38bdf8;background:rgba(14,165,233,.25)}
+h1.pg-t{font-size:1.4rem;margin:4px 0 14px;text-align:center;color:#fff}
+</style></head><body>
+<div class="bg-fx"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div></div>
+<div class="w" id="app"></div>
+<script>
+const P=s=>s.trim().split("\n").map(l=>{const a=l.split("|");return{t:"mc",q:a[0].replace(/\\n/g,"\n"),o:a.slice(1,-1),a:"ABCD".indexOf(a[a.length-1])}});
+const PDS=s=>s.trim().split("\n").map(l=>{const a=l.split("|");return{t:"ds",q:a[0].replace(/\\n/g,"\n"),s:a.slice(1,5),a:a[5].split("").map(c=>c==="Đ")}});
+const PSA=s=>s.trim().split("\n").map(l=>{const a=l.split("|");return{t:"sa",q:a[0].replace(/\\n/g,"\n"),a:a[1].trim(),h:a[2]||""}});
+
+/* ==================== TIẾNG ANH 11 ==================== */
+const U1=P(`
+The doctor will ________ the patient thoroughly to determine the cause of the symptoms.|spread|examine|suffer|cure|B
+Advances in medical science have significantly increased the average life ________ in many countries.|expectancy|expectation|expect|expectant|A
+To achieve a long and healthy life, it's important to ________ attention to your diet and nutrition.|take|put|pay|make|C
+Electronic devices such as smartphones and computers ________ blue light, which can disrupt your sleep.|give off|take in|use up|get over|A
+In recent years, he ________ smoking to improve his lung health.|stopped|stops|has stopped|had stopped|C
+Many people find that they need to ________ sugary drinks and sodas to better manage their weight.|turn down|get over|work out|give up|D
+People who ________ from high levels of stress are more likely to experience mental health issues|prevent|suffer|expect|deny|B
+A balanced diet rich in essential ________ is key to maintaining a long and healthy life.|labels|tools|nutrients|organisms|C
+She ________ a variety of fruits and vegetables in her diet for five years.|includes|has included|will include|had included|B
+Consuming fresh and clean ingredients is essential to avoid food ________ and maintain good health.|poisonously|poisonous|poison|poisoning|D
+________ regularly can improve your sleep quality.|Giving up|Working out|Taking up|Standing out|B
+In 2018, the government ________ a national campaign to encourage citizens to adopt healthier lifestyles.|launched|has launched|had launched|launches|A
+Vaccination is a key strategy in preventing the ________ of infectious diseases.|treatment|spread|recipe|illness|B
+You should eat a ________ diet if you want to stay healthy and avoid illness.|balanced|balance|to balance|balancing|A
+I started eating more vegetables last week, but I ________ down on sugary drinks yet.|haven’t cut|cut|don’t cut|didn’t cut|A
+She ________ a healthy routine last year, but this year, she has been making healthier choices every day.|doesn’t follow|has followed|hasn’t followed|didn't follow|D
+To stay fit, Tuan ________ soft drinks and ate more vegetables.|turned down|cut down on|took over|gave back|B
+Ella felt full of ________ after eating a big breakfast and getting enough sleep.|food|life|strength|energy|D
+A healthy ________ helps you focus better at school and feel happier every day.|sleep|value|lesson|lifestyle|D
+They ________ out regularly since last January, which has helped them to improve their fitness.|has been working|had worked|have worked|worked|C
+Some bacteria in our bodies are helpful, but some can cause infectious diseases such as ________ or food poisoning.|cancer|tuberculosis|asthma|diabetes|B
+A: "Doctor, can you give me some suggestions on how to stay healthy?"  B: "________."|Well, first of all, you need to make sure that you eat the right foods.|It is very confusing to know what to eat.|As long as you don't overdo it, a glass of wine a day should be OK.|If you smoke, you need to stop.|A
+Nam: Do you want me to help with your homework? Lan: ________|Homework? I don't like homework.|Thank you. It's very kind of you!|Why do we need homework?|If you like, you can do it every day.|B
+Laura: "People should take better care of their health to avoid some fatal diseases." Mitchell: "________. Being in good health helps us enjoy life better."|You are wrong|It doesn’t matter|I can’t agree with you more|That can’t be true|C
+`);
+const U2=P(`
+Modern technology has influenced the cultural ________ of younger generations, creating a gap with older generations.|values|conditions|differences|characteristics|A
+Parents sometimes face ________ with their children about career choices.|agree|agreeable|agreements|disagreements|D
+Parents often ________ about how the younger generation spends too much time on social media.|complain|limit|wonder|support|A
+The need to limit ________ is a common topic in parenting blogs and forums.|digital native|traditional view|screen time|social change|C
+Many children of doctors and nurses are inspired to follow ______ the footsteps of their parents, entering the medical field.|of|with|on|in|D
+Many teenagers feel that ________ values are irrelevant in today's fast-paced, contributing to the generation gap.|modern|traditional|social|special|B
+Differences in attitudes towards technology can cause ________ between generations|conflict|expectation|agreement|opinion|A
+I think you ________ try to listen to your teenager's concerns to understand them better.|should|have to|must|can|A
+She ________ in her mother’s footsteps and became a teacher.|followed|looked|looks|likes|A
+My little brother always asks questions and is ________ to find out all the answers.|strange|curious|experienced|responsible|B
+It is impossible to avoid daily ________ when you live with your extended family.|arguments|views|attitudes|characteristics|A
+Teens should learn to be ________ thinkers, not just follow trends blindly.|different|critical|traditional|relaxed|B
+Parents should ________ with new ways to communicate with their teenage children.|value|experiment|avoid|argue|B
+Older generations often have very ________ about how people should live.|common characteristic|traditional views|generational conflicts|cultural values|B
+This warning sign indicates that you ________ step on the grass.|shouldn’t|mustn’t|don’t have to|ought not to|B
+My mother wanted to become a dancer, but she ________ follow in her parents’ footsteps and became a medical doctor.|had to|must|shouldn’t|has to|A
+You ________ wear shorts to school. Please put your school uniform on.|must|mustn’t|have to|don’t have to|B
+I think parents ________ limit their children’s screen time to protect their eyesight.|mustn’t|don’t have to|shouldn’t|should|D
+You should be yourself! You ________ worry too much about what other people think about you.|should|have to|don’t have to|didn’t have to|C
+Fifty years ago, my grandmother ________ stay at home and do all housework. She couldn't go to school like her brothers.|must|had to|didn't have to|should|B
+Son: May I use the tablet for my homework? Mum: ________|I have lived here for years.|It tastes delicious.|Yes, of course.|It looks modern.|C
+John: “Using social networks may have negative effects on students.” Mary: “________. It distracts them from their studies.”|I’m not sure about that|I don’t quite agree|You’re wrong|That’s quite true|D
+Nam: “I think it is a good idea to have three or four generations living under one roof.” Mai: “________. Family members can help each other a lot.”|I don’t agree|It’s not true|That’s wrong|I couldn't agree more|D
+`);
+const U3=P(`
+As cities become smarter, city ________ will enjoy improved public services and greater connectivity.|neighbours|individuals|suburbs|dwellers|D
+Now, the room ________ pleasant thanks to the fragrant bow.|is smelling|was smelling|has smelled|smells|D
+Automated systems will help businesses ________ more efficiently, saving time and resources.|provide|operate|predict|include|B
+Access to green spaces is essential for maintaining a high ________ of life in urban areas.|quality|traffic|variety|device|A
+A strong ________ of community is essential for creating a supportive environment in the city|attraction|sense|key|privacy|B
+The design of future cities will encourage people to ________ more with their environment through green spaces.|promote|explain|control|interact|D
+Innovations in technology and infrastructure are essential to creating more ________ cities for the growing population|definite|livable|interactive|affordable|B
+Urban planning decisions today will have a lasting impact ________ the sustainability of cities in the future.|for|of|on|with|C
+Right now, I ________ spending time at the park, enjoying the fresh air.|am loving|love|will love|loves|A
+The local garden brings a sense of ________ to the neighborhood.|privacy|article|community|sensor|C
+In a survey about urban experience, people report that they often ________ safer in a smart city.|feel|are feeling|are not feeling|don’t feel|A
+The modern skyscraper looks ________ with a beautiful lighting system, especially at night.|terribly|terrific|terrifically|terrible|B
+Smart traffic lights may help reduce ________ during rush hours in big cities.|public transport|traffic jams|electric buses|cycling paths|B
+The project offers fresh vegetables to ________ through rooftop urban farming.|city dwellers|architects|flatmates|workers|A
+Several blocks in the city were turned into ________ to promote walking and reduce traffic.|bike zones|pedestrian zones|public squares|street markets|B
+Government support is essential for improving ________ in low-income urban neighborhoods.|green spaces|living conditions|health programs|noise control|B
+We need to make room ________ more affordable housing projects.|by|for|of|with|B
+Urban designers ________ about how to improve green space for better living.|think|are thinking|are thought|thinks|B
+Lan: Are you certain that all future buses will be electric? Minh: ________|It tastes a little salty.|I'm not sure about that.|Let me carry your bag.|Yes, you may borrow it.|B
+Paul: “I believe space travel will become more affordable for many people in the future.” Daisy: “________ Thanks to Hi-Tech and AI”.|It doesn’t matter at all.|There’s no doubt about that.|It is very kind of you to say so.|I am sorry to hear that.|B
+`);
+
+/* ==================== HOÁ HỌC 11 ==================== */
+const HP1=P(`
+Hằng số K của một phản ứng phụ thuộc vào yếu tố nào sau đây?|Nồng độ.|Nhiệt độ.|Áp suất.|Chất xúc tác.|B
+Biểu thức hằng số cân bằng (KC) của phản ứng C(s) + 2H2(g) ⇌ CH4(g) là|KC = [CH4]/[H2]|KC = [CH4]/([C].[H2]^2)|KC = [CH4]/([C].[H2])|KC = [CH4]/[H2]^2|D
+Các yếu tố có thể ảnh hưởng đến cân bằng hoá học là|nồng độ, nhiệt độ và chất xúc tác.|nồng độ, áp suất và diện tích bề mặt.|nồng độ, nhiệt độ và áp suất.|áp suất, nhiệt độ và chất xúc tác.|C
+Quan sát hai đồ thị biến thiên nồng độ theo thời gian dưới đây và chọn phát biểu đúng.\\n{{IMG_H4}}|Cả hai đồ thị đều mô tả phản ứng đã đạt đến trạng thái cân bằng.|Cả hai đồ thị đều không mô tả phản ứng đã đạt đến trạng thái cân bằng.|Chỉ đồ thị (a) mô tả phản ứng đã đạt đến trạng thái cân bằng.|Chỉ đồ thị (b) mô tả phản ứng đã đạt đến trạng thái cân bằng.|A
+Đối với phản ứng H2(g) + 1/2 O2(g) ⇌ H2O(l), ΔrH°298 = -286 kJ, cân bằng sẽ bị ảnh hưởng như thế nào khi tăng nhiệt độ (các điều kiện khác giữ không đổi)?|Cân bằng chuyển dịch sang phải.|Cân bằng chuyển dịch sang trái.|Không thay đổi.|Không dự đoán được sự chuyển dịch cân bằng.|B
+Cho các cân bằng: (1) 2SO2(g) + O2(g) ⇌ 2SO3(g); (2) N2(g) + 3H2(g) ⇌ 2NH3(g); (3) CO2(g) + H2(g) ⇌ CO(g) + H2O(g); (4) 2HI(g) ⇌ H2(g) + I2(g). Khi thay đổi áp suất, nhóm gồm các cân bằng hoá học đều không bị chuyển dịch là|(1) và (2).|(1) và (3).|(3) và (4).|(2) và (4).|C
+Chất nào sau đây là chất điện li?|Cl2.|HNO3.|MgO.|CH4.|B
+Chất nào sau đây thuộc loại chất điện li mạnh?|CH3COOH.|C2H5OH.|H2O.|NaCl.|D
+Cho phương trình: NH3 + H2O ⇌ NH4+ + OH-. Trong phản ứng thuận, theo thuyết Bronsted – Lowry chất nào là base?|NH3.|H2O.|NH4+.|OH-.|A
+Đối với dung dịch acid yếu CH3COOH 0,10 M, nếu bỏ qua sự điện li của nước thì đánh giá nào về nồng độ mol ion sau đây là đúng?|[H+] = 0,10 M.|[H+] < [CH3COO-].|[H+] > [CH3COO-].|[H+] < 0,10 M.|D
+Dung dịch nào sau đây có pH > 7?|NaCl.|NaOH.|HNO3.|H2SO4.|B
+Đo pH của một cốc nước chanh được giá trị pH bằng 2,4. Nhận định nào sau đây không đúng?|Nước chanh có môi trường acid.|Nồng độ ion [H+] của nước chanh là 10^-2,4 mol/L.|Nồng độ ion [H+] của nước chanh là 0,24 mol/L.|Nồng độ ion [OH-] của nước chanh nhỏ hơn 10^-7 mol/L.|C
+Trong không khí, chất nào sau đây chiếm phần trăm thể tích lớn nhất?|O2.|NO.|CO2.|N2.|D
+Công thức hóa học của diêm tiêu Chile (Sodium nitrate) là|Ca(NO3)2.|NH4NO3.|NH4Cl.|NaNO3.|D
+Ở nhiệt độ thường, nitrogen khá trơ về mặt hoạt động hóa học là do|nitrogen có bán kính nguyên tử nhỏ.|nitrogen có độ âm điện lớn.|phân tử nitrogen có liên kết ba bền vững.|phân tử nitrogen không phân cực.|C
+Trong hợp chất nitrogen có các mức oxi hóa nào sau đây?|-3, +3, +5.|-3, 0, +3, +5.|-3, +1, +2, +3, +4, +5.|-3, 0, +1, +2, +3, +4, +5.|C
+Tính chất nào sau đây không phải tính chất vật lí của N2?|Chất khí.|Không màu.|Nặng hơn không khí.|Tan ít trong nước.|C
+Trong phản ứng: N2(g) + 3H2(g) ⇌ 2NH3(g). N2 thể hiện|tính khử.|tính oxi hóa.|tính base.|tính acid.|B
+Trong tự nhiên, phản ứng giữa nitrogen và oxygen (trong cơn mưa dông kèm sấm sét) là khởi đầu cho quá trình tạo và cung cấp loại phân bón nào cho cây?|Phân kali.|Phân đạm ammonium.|Phân lân.|Phân đạm nitrate.|D
+Cho vài giọt quỳ tím vào dung dịch NH3 thì dung dịch chuyển thành|màu hồng.|màu vàng.|màu đỏ.|màu xanh.|D
+Nhúng 2 đũa thuỷ tinh vào 2 bình đựng dung dịch HCl đặc và NH3 đặc. Sau đó đưa 2 đũa lại gần nhau thì thấy xuất hiện|khói màu trắng.|khói màu tím.|khói màu nâu.|khói màu vàng.|A
+Tính chất hóa học của NH3 là|tính base, tính khử.|tính base, tính oxi hóa.|tính acid, tính base.|tính acid, tính khử.|A
+Dung dịch NH3 phản ứng được với dung dịch nào sau đây?|NaOH.|KCl.|HCl.|KOH|C
+Để tạo độ xốp cho một số loại bánh, có thể dùng chất nào sau đây?|(NH4)3PO4.|NH4HCO3.|CaCO3.|NaCl.|B
+Có thể nhận biết muối ammonium bằng cách cho muối tác dụng với dung dịch kiềm thấy thoát ra một chất khí. Chất khí đó là|NH3.|H2.|NO2|NO.|A
+Phương trình hóa học nào sau đây sai?|NH4NO3 → NH3 + HNO3 (t°)|NH4Cl → NH3 + HCl (t°)|(NH4)2CO3 → 2NH3 + CO2 + H2O (t°)|NH4HCO3 → NH3 + CO2 + H2O (t°)|A
+Tã lót trẻ em sau khi được giặt sạch vẫn còn mùi khai do vẫn lưu lại một lượng ammonia. Để khử hoàn toàn mùi của ammonia thì người ta cho vào nước xả cuối cùng một ít hoá chất có sẵn trong nhà. Hãy chọn hoá chất thích hợp:|Phèn chua.|Giấm ăn.|Muối ăn.|Nước gừng tươi.|B
+Mưa acid là hiện tượng nước mưa có pH như thế nào?|> 5,6.|< 7.|> 7.|< 5,6.|D
+Hiện tượng mưa acid là do không khí bị ô nhiễm bởi các khí nào sau đây?|SO2, NO, NO2.|NO, CO, CO2.|CH4, HCl, CO.|Cl2, CH4, SO2.|A
+Trong công nghiệp, quá trình sản xuất Ca(NO3)2 làm phân bón được thực hiện bằng phản ứng giữa dung dịch HNO3 với hợp chất phổ biến, giá rẻ nào sau đây?|CaO.|Ca(OH)2.|CaCO3.|CaSO4.|C
+Hiện tượng phú dưỡng là một biểu hiện của môi trường ao, hồ bị ô nhiễm do dư thừa các chất dinh dưỡng. Sự dư thừa dinh dưỡng chủ yếu do hàm lượng các ion nào sau đây vượt quá mức cho phép?|Sodium, potassium.|Calcium, magnesium.|Nitrate, phosphate.|Chloride, sulfate.|C
+Hoạt động nào sau đây góp phần gây nên hiện tượng phú dưỡng?|Sự quang hợp của cây xanh.|Nước thải sinh hoạt thải trực tiếp vào nguồn nước chưa qua xử lí.|Ao hồ thả quá nhiều tôm, cá.|Khử trùng ao hồ sau khi tát cạn bằng vôi sống (CaO).|B
+Các oxide của nitrogen không được tạo thành trong trường hợp nào sau đây?|Núi lửa phun trào.|Đốt cháy các nhiên liệu hóa thạch.|Mưa dông, sấm sét.|Xả thải nước thải công nghiệp chưa qua xử lí.|D
+Ở điều kiện thường, sulfur tồn tại ở dạng tinh thể, được tạo nên từ các phân tử sulfur. Số nguyên tử trong mỗi phân tử sulfur là|2.|4.|6.|8.|D
+Khí X làm đục nước vôi trong và được dùng làm chất tẩy trắng bột gỗ trong công nghiệp giấy. Chất X là|NH3.|CO2.|SO2.|O3.|C
+Sulfur dioxide có tính chất hóa học gì?|có tính khử mạnh.|có tính oxi hoá yếu.|có tính oxi hoá mạnh.|vừa có tính khử và vừa có tính oxi hoá.|D
+SO2 là một khí độc được thải ra từ các vùng công nghiệp, là một trong những nguyên nhân chính gây ra hiện tượng nào dưới đây?|Mưa acid.|Hiệu ứng nhà kính.|Hiệu ứng đomino.|Sương mù.|A
+Trong công nghiệp, phần lớn sulfur đơn chất sau khi khai thác ở các mỏ được dùng làm nguyên liệu để|lưu hóa cao su tự nhiên.|sản xuất sulfuric acid.|điều chế thuốc bảo vệ thực vật.|bào chế thuốc đông y.|B
+Một bạn học sinh thu khí SO2 vào bình tam giác và đậy miệng bình bằng bông tẩm dung dịch E (để giữ không cho khí SO2 bay ra) theo sơ đồ bên.\\n{{IMG_H39}}\\nTheo em, để hiệu quả nhất, bạn học sinh cần sử dụng dung dịch E là dung dịch nào sau đây?|Giấm ăn.|Muối ăn.|Nước vôi.|Nước máy.|C
+Khi nhiệt kế thủy ngân vỡ, rắc chất bột nào sau đây lên thủy ngân rơi vãi sẽ chuyển hóa chúng thành hợp chất bền, ít độc hại?|Than đá.|Đá vôi.|Muối ăn.|Sulfur.|D
+`);
+const HP2=PDS(`
+Câu 1 (Đúng/Sai): Cho phản ứng tổng hợp ammonia:\\nN2(g) + 3H2(g) ⇌ 2NH3(g)   (ΔrH°298 = -91,8 kJ)|Phản ứng trên là phản ứng tỏa nhiệt theo chiều thuận.|Khi tăng nhiệt độ của hệ thì cân bằng chuyển dịch theo chiều nghịch.|Khi giảm áp suất của hệ thì cân bằng chuyển dịch theo chiều thuận.|Để phản ứng tổng hợp NH3 đạt hiệu suất cao thì người ta thực hiện ở nhiệt độ thấp và áp suất cao.|ĐĐSĐ
+Câu 2 (Đúng/Sai): Cho dung dịch X có [H+] = 10^-8 M.|Dung dịch X có môi trường acid.|Dung dịch X có pH = 8.|Dung dịch X có thể là dung dịch HCl 10^-8 M.|Dung dịch X có thể là dung dịch Ba(OH)2 5.10^-7 M (hoặc dung dịch base loãng có [OH-] = 10^-6 M).|SĐSS
+Câu 3 (Đúng/Sai): Xét cấu tạo và tính chất vật lí của nitrogen (Z = 7).|Trong bảng tuần hoàn, nitrogen thuộc ô số 7, chu kì 2, nhóm VA.|Phân tử nitrogen chứa một liên kết ba năng lượng liên kết nhỏ và là phân tử không phân cực.|Ở điều kiện thường, nitrogen là chất khí không màu, không mùi, tan rất ít trong nước.|Khí nitrogen nặng hơn không khí, không duy trì sự cháy và sự hô hấp.|ĐSĐS
+Câu 4 (Đúng/Sai): Xét cấu tạo của phân tử NH3.|Phân tử NH3 có dạng chóp tam giác gồm 1 nguyên tử N ở đỉnh liên kết với 3 nguyên tử H ở đáy.|Trong NH3 chứa 3 liên kết N – H là các liên kết cộng hóa trị phân cực về phía H.|Trong NH3, nguyên tử N còn cặp electron chưa tham gia liên kết.|Giữa các phân tử NH3 có liên kết hydrogen.|ĐSĐĐ
+Câu 5 (Đúng/Sai): Mưa acid là hiện tượng nước mưa có pH < 5,6.|Nguyên nhân gây mưa acid là do SO2, NOx trong không khí bị khử rồi hòa tan vào nước thành H2SO4, HNO3.|Nguồn gốc của SO2, NOx từ hoạt động của núi lửa, sấm sét, hoạt động công nghiệp, nhiệt điện, giao thông…|Mưa acid tác động xấu đến môi trường, con người và sinh vật.|Mưa acid ăn mòn, phá hủy các công trình xây dựng bằng đá và kim loại.|SĐĐĐ
+Câu 6 (Đúng/Sai): Phú dưỡng là hiện tượng dư thừa quá nhiều các nguyên tố dinh dưỡng (N, P) trong các nguồn nước làm cho các sinh vật trong nước như vi khuẩn, tảo, rong, rêu,… phát triển nhanh.|Nguyên nhân gây ra hiện tượng phú dưỡng do nguồn nước thải nông nghiệp, công nghiệp, sinh hoạt,... chưa xử lí triệt để thải vào ao hồ.|Hiện tượng phú dưỡng làm giảm sự quang hợp của thực vật thủy sinh và làm tăng nguồn oxygen của tôm, cá,… gây mất cân bằng hệ sinh thái.|Các loại tôm, cá,… ở ao hồ có hiện tượng phú dưỡng thường khỏe mạnh và béo tốt vì có nguồn chất dinh dưỡng phong phú.|Để khắc phục hiện tượng phú dưỡng ta cần xử lí nước thải trước khi thải vào môi trường, sử dụng phân bón đúng liều lượng, khơi thông kênh rạch, ao hồ, lưu thông dòng nước.|ĐSSĐ
+`);
+const HP3=PSA(`
+Cho các phát biểu sau:\\n(1) Dung dịch các chất điện li dẫn được điện.\\n(2) Trong dung dịch chất điện li yếu gồm cả phân tử và ion.\\n(3) Theo thuyết Bronsted – Lowry thì acid là những chất cho electron.\\n(4) Theo thuyết Bronsted – Lowry thì acid – base có thể là phân tử hoặc ion.\\n(5) Theo thuyết Bronsted – Lowry thì H2O là chất lưỡng tính.\\nHãy sắp xếp các phát biểu đúng theo số thứ tự tăng dần (ví dụ 12, 123, …)|1245|Các phát biểu đúng là (1), (2), (4), (5). Phát biểu (3) sai vì acid là chất cho proton (H+).
+Dung dịch HCl 0,01 M có pH bằng bao nhiêu?|2|[H+] = 0,01 = 10^-2 M ⇒ pH = 2.
+Dung dịch NaOH 0,01 M có pH bằng bao nhiêu?|12|[OH-] = 0,01 = 10^-2 M ⇒ pOH = 2 ⇒ pH = 14 - 2 = 12.
+Để xác định nồng độ của một dung dịch HCl, người ta đã tiến hành chuẩn độ bằng dung dịch NaOH 0,1 M. Để chuẩn độ 10 mL dung dịch HCl này cần 20 mL dung dịch NaOH. Nồng độ của dung dịch HCl trên là bao nhiêu mol/L?|0,2|C_M(HCl) = (0,1 × 20) / 10 = 0,2 M.
+Cho các cân bằng sau:\\n(1) H2(g) + I2(g) ⇌ 2HI(g)\\n(2) 2NO2(g) ⇌ N2O4(g)\\n(3) 3H2(g) + N2(g) ⇌ 2NH3(g)\\n(4) 2SO2(g) + O2(g) ⇌ 2SO3(g)\\nHãy sắp xếp các cân bằng bị chuyển dịch khi tăng áp suất và giữ nguyên nhiệt độ theo số thứ tự tăng dần (ví dụ 12, 134, …)|234|Cân bằng (2), (3), (4) có tổng hệ số mol khí hai vế khác nhau nên bị chuyển dịch khi thay đổi áp suất.
+Cho cân bằng hoá học sau: 2SO2(g) + O2(g) ⇌ 2SO3(g) (ΔrH°298 < 0).\\nCho các tác động: (1) tăng nhiệt độ, (2) tăng áp suất chung của hệ phản ứng, (3) hạ nhiệt độ, (4) dùng thêm chất xúc tác V2O5, (5) giảm nồng độ SO3, (6) giảm áp suất chung của hệ phản ứng.\\nHãy sắp xếp các tác động làm cân bằng chuyển dịch theo chiều nghịch theo số thứ tự tăng dần.|16|Chiều thuận tỏa nhiệt và giảm số mol khí ⇒ chiều nghịch thu nhiệt và tăng số mol khí ⇒ (1) tăng nhiệt độ và (6) giảm áp suất làm cân bằng dịch chuyển theo chiều nghịch.
+Phân tử NH3 có bao nhiêu liên kết sigma (σ)?|3|Phân tử NH3 có 3 liên kết đơn N–H tương ứng với 3 liên kết σ.
+Nhiệt phân các muối ammonium: (1) NH4Cl, (2) (NH4)2CO3, (3) NH4NO2, (4) NH4HCO3, (5) NH4NO3.\\nHãy sắp xếp các trường hợp thu được khí NH3 theo số thứ tự tăng dần.|124|Các muối chứa gốc acid không có tính oxi hóa như (1) NH4Cl, (2) (NH4)2CO3, (4) NH4HCO3 khi nhiệt phân tạo ra khí NH3.
+Cho các nhận định sau về tính chất hóa học của nitric acid: (1) có tính acid mạnh; (2) có tính acid yếu; (3) có tính oxi hóa mạnh; (4) có tính khử mạnh.\\nHãy sắp xếp các nhận định đúng theo số thứ tự tăng dần.|13|HNO3 có tính acid mạnh (1) và tính oxi hóa mạnh (3).
+Phú dưỡng là hệ quả sau khi ao ngòi, sông hồ nhận quá nhiều các nguồn thải chứa các chất dinh dưỡng chứa nguyên tố nitrogen, phosphorus. Khi hàm lượng phosphorus vượt quá 20 µg/L và hàm lượng nitrogen vượt quá ngưỡng x µg/L thì xảy ra hiện tượng phú dưỡng. Giá trị của x là bao nhiêu?|300|Ngưỡng gây hiện tượng phú dưỡng là hàm lượng nitrogen trong nước đạt từ 300 µg/L trở lên.
+`);
+const HP4=PSA(`
+[Tự luận 1] Phản ứng thuỷ phân ion Al3+ trong nước: Al3+ + 3H2O ⇌ Al(OH)3↓ + 3H+.\\nTheo thuyết Bronsted – Lowry, trong phản ứng thuận: (1) Al3+ là acid, H2O là base; (2) Al3+ là base, H2O là acid.\\nHãy nhập số thứ tự của nhận định đúng (1 hoặc 2).|1|Ion Al3+ nhận OH- từ H2O và giải phóng H+ nên Al3+ đóng vai trò là acid, H2O là base; kết tủa keo Al(OH)3 sinh ra kéo theo các chất bẩn lơ lửng lắng xuống làm trong nước.
+[Tự luận 2] Trong môi trường acid, diệp lục có màu vàng đến đỏ; còn trong môi trường kiềm, diệp lục có màu xanh.\\nCho các chất: (1) Nước cốt chanh (chứa citric acid), (2) Thuốc muối NaHCO3 (thủy phân tạo môi trường kiềm yếu).\\nChất nào giúp giữ màu xanh đẹp cho lá dong khi luộc bánh chưng? (Nhập 1 hoặc 2)|2|Chanh (1) chứa acid làm nước rau muống nhạt màu xanh; thuốc muối NaHCO3 (2) tạo môi trường kiềm giúp diệp lục giữ màu xanh đẹp.
+[Tự luận 3] Trong một ngày, một làng nghề đốt cháy 20 kg sulfur (S) để tạo thành SO2. Giả thiết có 20% lượng khí SO2 trên bay vào khí quyển và chuyển hoá hết thành H2SO4 trong nước mưa theo sơ đồ: S → SO2 → SO3 → H2SO4.\\nThể tích nước mưa bị nhiễm acid là x nghìn m³ nếu nồng độ H2SO4 trong nước mưa là 1,25.10^-5 M. Xác định giá trị của x.|10|n(S) = 20000 / 32 = 625 mol ⇒ n(H2SO4) = 625 × 20% = 125 mol. V = 125 / (1,25.10^-5) = 10^7 L = 10.000 m³ = 10 nghìn m³.
+[Tự luận 4] Trộn lẫn V mL dung dịch NaOH 0,03 M với V mL dung dịch HCl 0,01 M được 2V mL dung dịch Y.\\nDung dịch Y có pH bằng bao nhiêu?|12|Sau phản ứng: [OH-] dư = (0,03V - 0,01V) / (2V) = 0,01 M = 10^-2 M ⇒ pOH = 2 ⇒ pH = 12.
+[Tự luận 5] Nabica là thuốc có thành phần chính là NaHCO3, dùng để trung hòa bớt acid HCl dư trong dạ dày (NaHCO3 + HCl → NaCl + CO2 + H2O). Giả thiết nồng độ HCl trong dạ dày là 0,035 M.\\nTính thể tích dung dịch HCl (đơn vị mL) được trung hòa khi bệnh nhân uống 0,588 g bột NaHCO3.|200|n(NaHCO3) = 0,588 / 84 = 0,007 mol = n(HCl) ⇒ V(HCl) = 0,007 / 0,035 = 0,2 L = 200 mL.
+`);
+
+/* ==================== SINH HỌC 11 (FULL TN + ĐS + TRLN) ==================== */
+const SB1=P(`
+Hoạt động nào sau đây là một dấu hiệu đặc trưng của quá trình trao đổi chất và chuyển hóa năng lượng ở sinh vật?|Chỉ tổng hợp chất hữu cơ và loại bỏ các chất không cần thiết.|Thu nhận chất, biến đổi chất và đào thải chất ra môi trường.|Chỉ phân giải chất hữu cơ và giải phóng năng lượng cho tế bào.|Chỉ thu nhận chất dinh dưỡng và tích lũy chúng trong cơ thể.|B
+Quá trình tổng hợp các chất và tích lũy năng lượng trong cơ thể được gọi là|bài tiết.|dị hóa.|vận chuyển.|đồng hóa.|D
+Sinh vật tự dưỡng là những sinh vật|Tự tổng hợp chất hữu cơ từ các chất vô cơ.|Chỉ sử dụng chất hữu cơ có sẵn trong môi trường.|phân giải chất hữu cơ để tạo ra chất vô cơ.|Lấy trực tiếp chất hữu cơ từ các sinh vật khác.|A
+Ví dụ nào sau đây thể hiện phương thức dinh dưỡng dị dưỡng?|Cây ngô sử dụng năng lượng ánh sáng để quang hợp.|Tảo lục tổng hợp chất hữu cơ nhờ quang hợp.|Nấm lấy chất hữu cơ từ nguồn thức ăn có sẵn.|Cây lúa tổng hợp chất hữu cơ nhờ quang hợp.|C
+Vai trò cơ bản của trao đổi chất và chuyển hóa năng lượng đối với sinh vật là gì?|Giúp sinh vật loại bỏ hoàn toàn mọi biến đổi của môi trường.|Giúp sinh vật ngừng tiêu hao năng lượng khi trưởng thành.|Cung cấp vật chất và năng lượng cho các hoạt động sống.|Giúp sinh vật chỉ tăng kích thước mà không cần phân chia tế bào.|C
+Ba giai đoạn cơ bản của chuyển hóa năng lượng trong sinh giới là|Đồng hóa, bài tiết và điều hòa thân nhiệt.|Tổng hợp, phân giải và huy động năng lượng.|Sinh trưởng, phát triển và sinh sản.|Hấp thụ, vận chuyển và đào thải vật chất.|B
+Vai trò quan trọng của sinh vật tự dưỡng trong sinh giới là gì?|Tổng hợp chất hữu cơ, tích lũy năng lượng và cung cấp nguồn thức ăn.|Chỉ hấp thụ chất hữu cơ từ sinh vật khác để duy trì sự sống.|Phân giải toàn bộ chất hữu cơ và ngăn cản dòng năng lượng truyền đi.|Chỉ đào thải chất vô cơ và không tham gia vào chuỗi thức ăn.|A
+Sinh vật có thể tồn tại, sinh trưởng, phát triển và thích nghi với môi trường sống nhờ có:|Trao đổi chất và sinh sản|Chuyển hóa năng lượng|Trao đổi chất và chuyển hóa năng lượng|Trao đổi chất và cảm ứng|C
+Mọi cơ thể sống đều không ngừng trao đổi chất và chuyển hóa năng lượng với môi trường, khi quá trình này dừng lại thì:|Sinh vật sẽ sinh trưởng|Sinh vật sẽ phát triển|Sinh vật sẽ chết|Sinh vật sẽ vận động và sinh sản|C
+Trong tế bào, mối quan hệ giữa trao đổi chất và chuyển hóa năng lượng được thể hiện như thế nào?|Chuyển hóa năng lượng chỉ diễn ra khi tế bào ngừng tổng hợp chất.|Hai quá trình diễn ra độc lập và không ảnh hưởng đến nhau.|Trao đổi chất chỉ diễn ra khi tế bào không cần năng lượng.|Hai quá trình liên hệ chặt chẽ, hỗ trợ lẫn nhau trong hoạt động sống.|D
+Đâu là vai trò của trao đổi chất và chuyển hóa năng lượng đối với sinh vật?|Giúp sinh vật lấy được các chất từ môi trường.|Giúp sinh vật chuyển hóa các chất phức tạp thành các chất đơn giản.|Giúp sinh vật tồn tại và phát triển.|Giúp sinh vật phân giải các chất độc hại sinh ra từ quá trình chuyển hóa.|C
+Quá trình nào dưới đây không phải là dấu hiệu đặc trưng của trao đổi chất và chuyển hóa năng lượng ở sinh vật?|Phân giải các chất được tiếp nhận từ môi trường và hấp thụ các chất.|Tiếp nhận các chất từ môi trường và vận chuyển các chất.|Biến đổi các chất kèm theo chuyển hóa năng lượng ở tế bào.|Thải các chất vào môi trường.|A
+Có bao nhiêu dấu hiệu dưới đây đặc trưng của quá trình trao đổi chất và chuyển hóa năng lượng ở sinh vật:\\n(1) Thu nhận các chất từ môi trường\\n(2) Đào thải các chất\\n(3) Biến đổi các chất thành chất vô cơ\\n(4) Tổng hợp và tích lũy năng lượng\\n(5) Điều hòa|2|3|4|5|C
+Ghép nội dung ở cột bên phải với nội dung ở cột bên trái để trở thành một câu có nội dung đúng về ví dụ của dấu hiệu đặc trưng cho quá trình trao đổi chất và chuyển hóa năng lượng:\\n1. Bài tiết các chất\\n2. Biến đổi các chất\\n3. Thu nhận các chất\\n4. Vận chuyển các chất\\n---\\na. Dạ dày co bóp và tiết enzyme pepsin để tiêu hóa protein trong thức ăn.\\nb. Máu đưa O2 từ hệ hô hấp và các chất dinh dưỡng được hấp thụ ở hệ tiêu hóa đến từng tế bào.\\nc. Thận thải ure và các chất không cần thiết thông qua nước tiểu.\\nd. Cây bàng hấp thụ nước và các ion khoáng thông qua các tế bào lông hút ở rễ.|1-a, 2-b, 3-c, 4-d.|1-c, 2-a, 3-d, 4-b.|1-c, 2-a, 3-b, 4-d.|1-a, 2-c, 3-d, 4-b.|B
+Phát biểu nào sai khi nói về các dấu hiệu đặc trưng của quá trình trao đổi chất và chuyển hóa năng lượng ở sinh vật?|Ở thực vật, hệ thống mạch dẫn vận chuyển các chất dinh dưỡng đã thu nhận đến từng tế bào.|Sinh vật thu nhận các chất từ môi trường nhờ các cơ quan chuyên biệt.|Quá trình trao đổi chất và chuyển hóa năng lượng ở động vật và thực vật được điều hòa thông qua hệ thần kinh.|Trao đổi chất và chuyển hóa năng lượng không chỉ diễn ra khi sinh vật sinh trưởng và phát triển.|C
+`);
+
+const SB23=P(`
+Trong cây, dòng mạch gỗ chủ yếu vận chuyển|chất hữu cơ từ lá đến rễ và các cơ quan dự trữ.|hormone từ lá đến các cơ quan sinh sản của cây.|nước và ion khoáng từ rễ lên các cơ quan phía trên.|đường từ cơ quan dự trữ đến các cơ quan đang sinh trưởng.|C
+Chức năng chính của dòng mạch rây là vận chuyển|oxygen từ lá đến rễ để cung cấp cho mọi tế bào của cây.|chất hữu cơ từ cơ quan nguồn đến cơ quan sử dụng hoặc dự trữ.|ion khoáng từ rễ đến lá mà không vận chuyển chất hữu cơ.|nước từ đất vào rễ rồi vận chuyển lên các cơ quan phía trên.|B
+Dinh dưỡng ở thực vật là quá trình cây|phân giải toàn bộ chất hữu cơ để thải ra môi trường.|chỉ hấp thụ chất hữu cơ có sẵn từ đất và phân bón.|chỉ hấp thụ nước để duy trì sức trương của tế bào.|hấp thụ và sử dụng các chất cần thiết cho hoạt động sống.|D
+Nguyên tố khoáng nào sau đây là nguyên tố đa lượng cần thiết cho cây trồng?|Iron (Fe).|Zinc (Zn).|Nitrogen (N).|Copper (Cu).|C
+Nguồn cung cấp nitrogen cho cây bao gồm|chỉ nitrogen có trong nước mưa và chất hữu cơ chưa phân giải.|chủ yếu nitrogen khí quyển được lá hấp thụ trực tiếp để tổng hợp protein.|chủ yếu nitrogen tự do trong không khí được rễ hấp thụ trực tiếp.|nitrogen trong đất ở dạng cây hấp thụ được và nitrogen từ quá trình cố định sinh học.|D
+Nước được hấp thụ chủ yếu qua tế bào lông hút của rễ theo cơ chế|vận chuyển chủ động, nhờ protein màng bơm phân tử nước vào tế bào.|thực bào, nhờ tế bào lông hút bao lấy các phân tử nước từ đất.|khuếch tán chủ động, nhờ tế bào sử dụng trực tiếp năng lượng ATP.|thẩm thấu, do sự chênh lệch thế nước giữa đất và tế bào lông hút.|D
+Động lực hút nước từ rễ lên lá chủ yếu được tạo ra bởi|sự thoát hơi nước ở lá.|sự tổng hợp protein ở lá.|sự hấp thụ chất hữu cơ ở rễ.|sự phân giải tinh bột ở thân.|A
+Rễ cây hấp thu khoáng từ đất theo cơ chế|thẩm thấu.|hấp thụ chủ động.|hấp thụ thụ động.|hấp thụ chủ động và hấp thụ thụ động.|D
+Sự hấp thụ khoáng theo cơ chế thụ động diễn ra theo nguyên lí|nhập bào|chủ động|thẩm thấu.|khuếch tán|D
+Ion khoáng từ môi trường đất có thể được hấp thụ vào rễ cây theo cơ chế nào sau đây?|Thụ động, không cần năng lượng.|Thụ động, cần năng lượng.|Chủ động, không cần năng lượng.|Biến dạng màng.|A
+Phần lớn các ion khoáng xâm nhập vào rễ theo cơ chế chủ động, diễn ra theo phương thức vận chuyển từ nơi có|nồng độ cao đến nơi có nồng độ thấp, cần tiêu tốn ít năng lượng.|nồng độ cao đến nơi có nồng độ thấp.|nồng độ thấp đến nơi có nồng độ cao, không đòi hỏi tiêu tốn năng lượng.|nồng độ thấp đến nơi có nồng độ cao, đòi hỏi phải tiêu tốn năng lượng.|D
+Sự hấp thụ & trao đổi khoáng thường gắn liền với sự trao đổi nước vì|các nguyên tố khoáng không tan trong nước.|các nguyên tố khoáng liên kết với nước.|các nguyên tố khoáng hòa tan trong nước.|các nguyên tố khoáng có chứa nước.|C
+Vai trò nào sau đây của nước đối với thực vật là chính xác?|Chỉ là dung môi hòa tan chất khoáng, không tham gia cấu tạo tế bào.|Là thành phần cấu tạo tế bào, dung môi và môi trường phản ứng sinh hóa.|Chỉ tham gia quang hợp, không liên quan đến các hoạt động sống khác.|Chỉ vận chuyển chất trong cây, không ảnh hưởng đến nhiệt độ cơ thể.|B
+Trình tự cơ bản của quá trình trao đổi nước ở thực vật là|vận chuyển nước ở lá → hấp thụ nước ở thân → thoát hơi nước ở rễ.|hấp thụ nước ở thân → thoát hơi nước ở rễ → vận chuyển nước ở lá.|hấp thụ nước ở rễ → vận chuyển nước ở thân → thoát hơi nước ở lá.|thoát hơi nước ở rễ → hấp thụ nước ở lá → vận chuyển nước ở thân.|C
+Khi tế bào khí khổng hút nước, tế bào thường|giảm sức trương, làm khí khổng mở.|mất hoàn toàn sức trương, làm khí khổng mở.|tăng sức trương, làm khí khổng mở.|tăng sức trương, làm khí khổng đóng.|C
+Lực liên kết giữa các phân tử nước và lực bám giữa nước với thành mạch dẫn có vai trò|ngăn cản nước di chuyển từ rễ lên các cơ quan phía trên.|góp phần duy trì cột nước liên tục trong mạch gỗ.|làm nước chuyển từ mạch rây sang mạch gỗ theo mọi hướng.|làm các phân tử nước tách rời và ngừng di chuyển trong mạch gỗ.|B
+Đâu không phải là vai trò của nước đối với cơ thể thực vật?|Là thành phần cấu tạo của tế bào.|Là nguyên liệu, môi trường của các phản ứng sinh hóa.|Nước chiếm tỉ lệ nhỏ trong thành phần cấu tạo của cây|Điều hòa nhiệt độ của cơ thể thực vật.|C
+Thoát hơi nước có vai trò quan trọng nào sau đây đối với cây?|Làm giảm sự hấp thụ nước ở rễ và ngăn cản quá trình quang hợp.|Ngăn hoàn toàn sự mất nước và làm ngừng vận chuyển khoáng trong cây.|Thay thế hoàn toàn vai trò của hệ mạch gỗ trong vận chuyển nước.|Tạo lực hút vận chuyển nước và khoáng, đồng thời giúp điều hòa nhiệt độ.|D
+Trong cây, nitrate được sử dụng để tổng hợp các hợp chất hữu cơ chứa nitrogen sau khi|được khử thành ammonium.|được chuyển trực tiếp thành cellulose.|bị phân giải hoàn toàn thành oxygen.|được chuyển trực tiếp thành tinh bột.|A
+Trong điều kiện đất bị ngập úng kéo dài, cây trồng có thể chết chủ yếu vì|mạch rây vận chuyển quá nhiều chất hữu cơ lên lá, làm rễ thiếu dinh dưỡng.|rễ thiếu oxygen, hô hấp giảm và khả năng hấp thụ nước, khoáng bị ảnh hưởng.|lá ngừng thoát hơi nước hoàn toàn, khiến mọi tế bào mất khả năng quang hợp.|rễ nhận quá nhiều oxygen, làm hô hấp tăng đến mức tế bào bị phá hủy.|B
+Vì sao sau khi bón phân, cây sẽ khó hấp thụ nước?|Vì áp suất thẩm thấu của đất giảm.|Vì áp suất thẩm thấu của rễ tăng.|Vì áp suất thẩm thấu của đất tăng.|Vì áp suất thẩm thấu của rễ giảm.|C
+Quá trình hấp thụ nước từ môi trường đất vào mạch gỗ diễn ra theo trình tự nào?|Nước từ đất → mạch gỗ của rễ → mạch rây của thân.|Nước từ đất → tế bào lông hút → mạch rây của thân.|Nước từ đất → tế bào lông hút → mạch gỗ của rễ → mạch gỗ của thân.|Nước từ đất → mạch gỗ của rễ → tế bào lông hút → mạch gỗ của thân.|C
+Trong con đường di chuyển của nước và khoáng qua gian bào, nhờ có đai Caspary mà|các ion khoáng được hấp thụ vào rễ một cách tối đa, hấp thụ tất cả các ion khoáng.|các ion khoáng được hấp thụ vào rễ một cách có chọn lọc cả về thành phần và số lượng.|nước và ion khoáng được giữ lại bên ngoài tế bào.|nước và ion khoáng được hòa tan, giúp rễ cây dễ dàng hấp thụ.|B
+Vì sao nếu bón quá nhiều phân cho cây sẽ làm cây héo và chết?|Vì cây sẽ phát triển quá mạnh, dễ bị nhiễm bệnh, dẫn đến héo và chết.|Vì bộ lá của cây phát triển mạnh, không đủ nguồn sáng cung cấp cho cây nên cây héo và chết.|Vì nồng độ chất tan của dung dịch đất tăng cao so với trong rễ cây, rễ không hút được nước từ môi trường; đồng thời cây bị mất nước do thoát hơi nước, dẫn đến cây bị héo và chết.|Vì rễ cây hấp thụ quá nhiều nước làm tế bào rễ bị trương vỡ và chết.|C
+Nếu nguyên tố khoáng (A) từ môi trường đất có nồng độ cao được hấp thụ vào trong rễ nơi có nồng độ thấp hơn ngoài môi trường đất. Nguyên tố khoáng A được hấp thụ theo cơ chế nào?|Thụ động.|Chủ động, cần năng lượng.|Chủ động, không cần năng lượng.|Biến dạng màng.|A
+Nếu một nguyên tố khoáng (A) từ môi trường đất có nồng độ thấp được hấp thụ vào trong rễ nơi có nồng độ cao hơn ngoài môi trường đất. Nguyên tố khoáng A được hấp thụ theo cơ chế nào?|Thụ động.|Chủ động, cần năng lượng.|Chủ động, không cần năng lượng.|Biến dạng màng.|B
+Các nguyên tố khoáng trong môi trường đất và rễ sau đây:\\n• Ion A: Đất 0,01M — Trong rễ 0,02M\\n• Ion B: Đất 0,03M — Trong rễ 0,05M\\n• Ion C: Đất 0,04M — Trong rễ 0,004M\\nCây không cần A, cần B và C. Phát biểu nào sau đây đúng?|A được hấp thụ chủ động.|A được hấp thụ bị động.|B được hấp thụ chủ động.|C được hấp thụ chủ động.|C
+Các nguyên tố khoáng trong môi trường đất và rễ sau đây:\\n• Ion K: Đất 0,1M — Trong rễ 0,2M\\n• Ion L: Đất 0,3M — Trong rễ 0,5M\\n• Ion M: Đất 0,4M — Trong rễ 0,45M\\nCây cần K, không cần L và M. Phát biểu nào sau đây đúng?|K được hấp thụ chủ động.|L được hấp thụ bị động.|M được hấp thụ bị động.|M được hấp thụ chủ động.|A
+Khi nói về trạng thái mất cân bằng nước, có bao nhiêu phát biểu đúng?\\n(1) Khi cây sống trong điều kiện bị hạn.\\n(2) Khi cây sống trong điều kiện ngập úng.\\n(3) Khi cây sống trong điều kiện có độ mặn cao.\\n(4) Khi lượng nước thoát ra ít hơn lượng nước hút vào.|1.|2.|3.|4.|C
+Có bao nhiêu phát biểu sau đây đúng để đảm bảo trạng thái cân bằng nước cho cây?\\nI. Tưới tiêu hợp lí, cung cấp vừa đủ lượng nước cần thiết.\\nII. Lượng nước cần thay đổi theo loài, theo từng giai đoạn phát triển và đúng phương pháp.\\nIII. Chọn lọc, tạo lai các giống cây trồng có khả năng chống chịu hạn, mặn, ngập úng khi trồng ở vùng có điều kiện bất lợi.\\nIV. Mùa nắng tưới ngày 3-4 lần, mùa mưa tưới 1-2 lần.|1.|2.|3.|4.|C
+Có bao nhiêu phát biểu sau đây đúng về việc bón quá ít hoặc quá nhiều phân bón với cây trồng?\\nI. Nếu bón phân với lượng quá ít, không đáp ứng được nhu cầu dinh dưỡng của cây, cây sẽ bị thiếu chất khoáng, còi cọc và chậm lớn.\\nII. Nếu bón phân quá nhiều, cây sẽ bị thừa chất và bị ngộ độc.\\nIII. Nếu bón phân quá nhiều, các vi khuẩn có lợi trong đất sẽ bị tiêu diệt, ô nhiễm đất và nước.\\nIV. Nếu bón phân với lượng quá ít, cây sẽ còi cọc và chậm lớn dần dẫn đến việc giảm năng suất cây trồng.|1.|2.|3.|4.|D
+`);
+
+const SHH=P(`
+Hô hấp ở thực vật là quá trình|sử dụng ánh sáng để tạo ATP và NADPH trong lục lạp.|phân giải chất hữu cơ, giải phóng năng lượng cung cấp cho hoạt động sống.|hấp thụ nước và ion khoáng từ đất để vận chuyển lên lá.|tổng hợp chất hữu cơ từ CO₂ và nước nhờ năng lượng ánh sáng.|B
+Vai trò chủ yếu của hô hấp đối với thực vật là|trực tiếp hấp thụ năng lượng ánh sáng và tổng hợp glucose.|thay thế hoàn toàn chức năng vận chuyển nước của mạch gỗ.|giải phóng năng lượng từ chất hữu cơ và cung cấp các hợp chất trung gian.|tạo ra toàn bộ chất hữu cơ mà cây sử dụng trong suốt vòng đời.|C
+Các giai đoạn chính của hô hấp hiếu khí ở tế bào thực vật gồm|đường phân, oxy hóa pyruvate và chu trình Krebs, chuỗi truyền electron hô hấp.|hấp thụ nước, vận chuyển nước và thoát hơi nước.|cố định CO₂, khử CO₂ và tái sinh chất nhận CO₂.|pha sáng, chu trình Calvin và tổng hợp tinh bột.|A
+Xét về bản chất hóa học, hô hấp là quá trình:|Oxygen hóa nguyên liệu hô hấp thành CO2, H2O và giải phóng năng lượng.|chuyển hóa, thu nhận O2 và thải CO2 xảy ra trong tế bào.|chuyển các nguyên tử hidro từ chất cho hidro sang chất nhận hidro.|thu nhận năng lượng của tế bào.|A
+Quá trình hô hấp ở thực vật có ý nghĩa gì?|Tạo năng lượng cung cấp cho các hoạt động sống của tế bào và cơ thể.|Đảm bảo cân bằng O2 và CO2 trong khí quyển.|Làm sạch không khí.|Chuyển hóa carbohydrate thành CO2 và H2O.|A
+Bào quan thực hiện quá trình hô hấp hiếu khí là gì?|Ti thể.|Lục lạp.|Không bào.|Bộ máy Golgi.|A
+Ở thực vật, bộ phận nào làm nhiệm vụ hô hấp?|Tất cả các bộ phận đều xảy ra hô hấp.|Rễ.|Thân.|Lá.|A
+Điều nào sau đây không phải là vai trò của hô hấp đối với cơ thể thực vật?|Sản phẩm là nguồn chất hữu cơ làm thức ăn cho mọi sinh vật.|Năng lượng ATP được sử dụng cho nhiều hoạt động sống của cây: vận chuyển, sinh trưởng, tổng hợp,...|Năng lượng nhiệt cần để duy trì hoạt động của cơ thể.|Tạo ra các sản phẩm trung gian cho các quá trình tổng hợp các chất hữu cơ khác.|A
+Bộ phận nào sau đây là nơi diễn ra hô hấp mạnh nhất ở thực vật?|Rễ.|Thân.|Lá.|Hoa.|A
+Khi nhiệt độ tăng từ mức thấp đến mức thích hợp, cường độ hô hấp của thực vật thường|dừng hoàn toàn vì tế bào không thể phân giải chất hữu cơ.|không thay đổi vì hô hấp không chịu ảnh hưởng của nhiệt độ.|giảm liên tục vì mọi enzyme hô hấp đều bị bất hoạt.|tăng do hoạt tính của các enzyme hô hấp tăng.|D
+Vì sao cần làm khô hạt giống trước khi bảo quản lâu dài?|Tăng hàm lượng nước để kích thích hạt hô hấp mạnh và nhanh nảy mầm.|Giảm hàm lượng nước, làm giảm cường độ hô hấp và hạn chế tiêu hao chất dự trữ.|Ngăn hoàn toàn mọi hoạt động trao đổi chất của hạt trong mọi điều kiện.|Làm tăng cường độ hô hấp để hạt sử dụng hết chất hữu cơ dự trữ.|B
+Khi bảo quản nông sản, người ta thường sử dụng nhiệt độ thấp phù hợp nhằm|tăng tốc độ phân giải chất hữu cơ để kéo dài thời gian bảo quản.|làm nông sản tiếp tục sinh trưởng nhanh trong suốt thời gian bảo quản.|giảm cường độ hô hấp, hạn chế tiêu hao chất hữu cơ trong nông sản.|tăng cường độ hô hấp để nông sản nhanh chóng loại bỏ chất dự trữ.|C
+Mối quan hệ giữa quang hợp và hô hấp ở thực vật được thể hiện như thế nào?|Sản phẩm quang hợp có thể là nguyên liệu cho hô hấp, còn sản phẩm hô hấp có thể được dùng trong quang hợp.|Hô hấp chỉ diễn ra ban đêm, còn quang hợp chỉ diễn ra ban ngày trong mọi trường hợp.|Quang hợp phân giải chất hữu cơ, còn hô hấp tổng hợp chất hữu cơ từ CO₂ và nước.|Quang hợp và hô hấp hoàn toàn độc lập, không có chất nào tham gia cả hai quá trình.|A
+Biện pháp nào sau đây giúp hạn chế tình trạng cây trồng bị thiếu nước?|Ngừng tưới nước khi nhiệt độ môi trường tăng cao.|Bón nhiều phân khoáng để thay thế lượng nước cây bị mất.|Tưới nước phù hợp với nhu cầu của cây và điều kiện đất đai.|Tưới thật nhiều nước cho mọi loại cây trong mọi điều kiện.|C
+Khi cây sống trong môi trường đất bị nhiễm mặn, việc hấp thụ nước của rễ thường gặp khó khăn vì|thế nước của dung dịch đất giảm, làm giảm khả năng nước đi vào rễ.|muối trong đất làm cây không cần nước cho các hoạt động sống.|nồng độ chất tan trong tế bào rễ luôn thấp hơn trong dung dịch đất.|thế nước của dung dịch đất tăng mạnh, làm nước luôn đi vào rễ.|A
+Vì sao cây trồng thường sinh trưởng kém khi đất bị ngập úng kéo dài?|Nước ngập làm mạch rây ngừng vận chuyển mọi chất hữu cơ trong cây.|Nước ngập làm lá tăng quang hợp liên tục, khiến rễ mất hoàn toàn chất hữu cơ.|Đất thừa oxygen làm rễ ngừng hô hấp và tăng hấp thụ chất khoáng.|Đất thiếu oxygen làm hô hấp của rễ bị ảnh hưởng, giảm khả năng hấp thụ nước và khoáng.|D
+Để lựa chọn giống cây trồng phù hợp với vùng thường xuyên khô hạn hoặc nhiễm mặn, cần ưu tiên giống có đặc điểm nào?|Có nhu cầu nước và chất khoáng cao hơn tất cả giống khác.|Có khả năng chống chịu tốt với điều kiện hạn hoặc mặn tương ứng.|Có khả năng sinh trưởng tốt mà không cần hấp thụ nước từ đất.|Có tốc độ thoát hơi nước luôn cao trong mọi điều kiện môi trường.|B
+Khi nói đến phân giải các chất theo con đường hô hấp tế bào (hô hấp hiếu khí), có bao nhiêu phát biểu sau đây đúng về chuỗi truyền electron?\\nI. Chuỗi truyền electron diễn ra ở màng trong ti thể.\\nII. Giai đoạn này, các phân tử NADH và FADH2 được sinh ra trong giai đoạn đường phân và chu trình Krebs sẽ bị oxy hoá sinh ra ATP và nước.\\nIII. Giai đoạn này không cần sử dụng oxygen.\\nIV. Giai đoạn này sinh ra năng lượng ít nhất.|1.|2.|3.|4.|B
+Cho 60 hạt đậu xanh vào một bình thủy tinh, đổ nước ngập hạt. Sau đó ngâm hạt trong nước khoảng 2 đến 3 giờ, gạn hết nước ra khỏi bình. Cắm một nhiệt kế vào khối hạt sau đó nút kín bình và đặt bình vào một hộp xốp. Nhiệt độ trong bình thay đổi như thế nào trong 24 giờ?|Nhiệt độ trong bình tăng dần lên.|Nhiệt độ trong bình giảm dần đi.|Nhiệt độ trong bình giữ nguyên.|Nhiệt độ trong bình lúc đầu giảm, sau đó tăng lên.|A
+Khi làm thí nghiệm chứng minh sự hô hấp ở hạt, người ta thiết kế thí nghiệm gồm ống nghiệm chứa vôi xút, ngăn lưới kim loại, hạt nảy mầm và nút có gắn ống mao dẫn chứa giọt nước màu (như hình vẽ).\\n{{IMG_HH20}}\\nTheo em giọt nước màu trong thí nghiệm di chuyển về hướng nào? Vì sao?|Di chuyển về phía bên phải vì quá trình hô hấp thải ra O2.|Di chuyển về bên phải vì quá trình hô hấp thải ra CO2.|Không di chuyển vì lượng CO2 thải ra tương đương lượng O2 hút vào.|Di chuyển về bên trái vì quá trình hô hấp hút O2.|D
+Nhiệt độ có ảnh hưởng như thế nào đến hô hấp ở thực vật. Có bao nhiêu giải thích sau đây đúng?\\nI. Nhiệt độ tạo năng lượng cung cấp cho các hoạt động của cây non.\\nII. Nhiệt độ tăng, cường độ hô hấp cũng tăng, thúc đẩy sự nảy mầm của hạt.\\nIII. Trong giới hạn nhất định phù hợp, khi nhiệt độ tăng, cường độ hô hấp cũng tăng.\\nIV. Nhiệt độ ảnh hưởng đến hoạt động của các enzyme hô hấp.|1.|2.|4.|3.|D
+Hàm lượng CO2, O2 có ảnh hưởng như thế nào đến hô hấp ở thực vật. Có bao nhiêu giải thích sau đây đúng?\\nI. Khí O2 là nguyên liệu của hô hấp nên ảnh hưởng trực tiếp đến cường độ hô hấp.\\nII. Hàm lượng CO2 trong không khí cao sẽ ức chế hô hấp hiếu khí.\\nIII. Khí O2 và CO2 là nguyên liệu của hô hấp nên ảnh hưởng trực tiếp đến cường độ hô hấp.\\nIV. Khí O2 và CO2 là sản phẩm của hô hấp nên ảnh hưởng trực tiếp đến cường độ hô hấp.|1.|2.|3.|4.|B
+Một học sinh đã đưa ra một số giải thích “Trong quá trình bảo quản nông sản, cần đưa cường độ hô hấp của nông sản về mức tối thiểu”. Có bao nhiêu giải thích sau đây đúng?\\nI. Để giữ được chất lượng nông sản cần duy trì cường độ hô hấp của nông sản ở mức tối thiểu để sự hao hụt xảy ra ở mức thấp nhất.\\nII. Hô hấp làm tiêu hao năng lượng nên làm mất năng lượng nông sản, nên cần bảo quản không cho hô hấp.\\nIII. Hô hấp sinh ra quá nhiều năng lượng mà nông sản không sử dụng được, nên cần bảo quản không cho hô hấp.\\nIV. Hô hấp làm phân giải chất hữu cơ làm nông sản gây hao hụt, nên muốn bảo quản cần đưa hô hấp ở mức thấp nhất.|1.|2.|3.|4.|B
+`);
+
+/* SINH HỌC 11 - PHẦN II: ĐÚNG / SAI */
+const SDS=PDS(`
+Câu 1 (Đúng/Sai): Xét khái quát quá trình trao đổi chất và chuyển hóa năng lượng ở sinh vật.|Đồng hóa là quá trình tổng hợp các chất hữu cơ phức tạp từ các chất đơn giản và tích lũy năng lượng.|Sinh vật tự dưỡng có khả năng tự tổng hợp chất hữu cơ từ các chất vô cơ, đóng vai trò cung cấp thức ăn và năng lượng cho sinh giới.|Chuyển hóa năng lượng trong sinh giới gồm ba giai đoạn: tổng hợp, phân giải và huy động năng lượng.|Ở cả động vật và thực vật, quá trình trao đổi chất và chuyển hóa năng lượng đều được điều hòa thông qua hệ thần kinh.|ĐĐĐS
+Câu 2 (Đúng/Sai): Xét mối quan hệ giữa trao đổi chất và chuyển hóa năng lượng trong tế bào.|Trao đổi chất và chuyển hóa năng lượng diễn ra độc lập nhau để tránh tiêu hao ATP của tế bào.|Dấu hiệu đặc trưng của trao đổi chất gồm thu nhận, vận chuyển, biến đổi chất và đào thải chất ra môi trường.|Khi quá trình trao đổi chất và chuyển hóa năng lượng dừng lại thì sinh vật sẽ chết.|Nấm là sinh vật tự dưỡng vì tự tổng hợp được chất hữu cơ nhờ ánh sáng mặt trời.|SĐĐS
+Câu 3 (Đúng/Sai): Xét sự trao đổi nước và vai trò của thoát hơi nước ở thực vật.|Trình tự trao đổi nước ở thực vật là: hấp thụ nước ở rễ → vận chuyển nước ở thân → thoát hơi nước ở lá.|Nước được hấp thụ chủ yếu qua tế bào lông hút của rễ theo cơ chế thẩm thấu do sự chênh lệch thế nước.|Khi tế bào khí khổng hút nước sẽ làm giảm sức trương và khiến khí khổng đóng lại.|Thoát hơi nước tạo động lực đầu trên kéo cột nước liên tục trong mạch gỗ và giúp điều hòa nhiệt độ cho cây.|ĐĐSĐ
+Câu 4 (Đúng/Sai): Xét sự hấp thụ nước và các ion khoáng ở rễ cây.|Dòng mạch gỗ chủ yếu vận chuyển nước và ion khoáng từ rễ lên lá, còn dòng mạch rây vận chuyển chất hữu cơ.|Sự hấp thụ ion khoáng theo cơ chế chủ động vận chuyển ion từ nơi có nồng độ thấp đến nơi có nồng độ cao và tiêu tốn ATP.|Đai Caspary ở nội bì rễ giúp điều chỉnh lượng nước và kiểm tra, chọn lọc các ion khoáng đi vào mạch gỗ.|Sau khi bón phân quá nhiều, áp suất thẩm thấu của đất giảm mạnh làm rễ hút quá nhiều nước nên cây bị úng chết.|ĐĐĐS
+Câu 5 (Đúng/Sai): Xét dinh dưỡng Nitrogen và trạng thái cân bằng nước ở cây trồng.|Nitrogen là nguyên tố khoáng đa lượng, được cây hấp thụ chủ yếu dưới dạng NH4+ và NO3-.|Trong tế bào thực vật, ion nitrate (NO3-) được sử dụng trực tiếp để tổng hợp amino acid mà không cần qua quá trình khử.|Đất bị ngập úng kéo dài làm rễ thiếu oxygen, giảm hô hấp nên giảm khả năng hấp thụ nước và khoáng.|Cây rơi vào trạng thái mất cân bằng nước khi sống trong điều kiện khô hạn, ngập úng hoặc đất nhiễm mặn.|ĐSĐĐ
+Câu 6 (Đúng/Sai): Xét khái quát quá trình hô hấp ở thực vật.|Hô hấp hiếu khí ở thực vật gồm 3 giai đoạn: đường phân, oxy hóa pyruvate và chu trình Krebs, chuỗi truyền electron hô hấp.|Bào quan thực hiện hô hấp hiếu khí là lục lạp, diễn ra chủ yếu vào ban đêm.|Hô hấp chỉ xảy ra ở lá mà không diễn ra ở rễ, thân hay hạt đang nảy mầm.|Hô hấp giúp giải phóng năng lượng ATP cho các hoạt động sống và cung cấp sản phẩm trung gian để tổng hợp chất hữu cơ.|ĐSSĐ
+Câu 7 (Đúng/Sai): Xét chuỗi truyền electron hô hấp và mối quan hệ giữa quang hợp với hô hấp.|Chuỗi truyền electron hô hấp diễn ra ở màng trong của ti thể và không cần sử dụng oxygen.|Giai đoạn chuỗi truyền electron oxy hóa NADH và FADH2 sinh ra từ đường phân và chu trình Krebs để tạo nhiều ATP và nước.|Sản phẩm của quang hợp có thể làm nguyên liệu cho hô hấp, ngược lại sản phẩm của hô hấp có thể dùng trong quang hợp.|Trong thí nghiệm ngâm 60 hạt đậu xanh nảy mầm đặt trong bình kín trong hộp xốp, nhiệt độ trong bình sẽ tăng dần lên.|SĐĐĐ
+Câu 8 (Đúng/Sai): Xét ảnh hưởng của các yếu tố môi trường đến hô hấp và ứng dụng bảo quản nông sản.|Trong giới hạn nhất định, khi nhiệt độ tăng thì hoạt tính enzyme hô hấp tăng làm cường độ hô hấp tăng.|Hàm lượng khí CO2 trong không khí tăng cao sẽ kích thích hô hấp hiếu khí diễn ra mạnh hơn.|Khi bảo quản hạt giống lâu dài, cần phơi hoặc sấy khô hạt để giảm hàm lượng nước, hạ cường độ hô hấp về mức tối thiểu.|Trong thí nghiệm hô hấp ở hạt nảy mầm có đặt vôi xút hấp thụ CO2, giọt nước màu trong ống mao dẫn di chuyển về phía bên trái do hạt hút O2.|ĐSĐĐ
+`);
+
+/* SINH HỌC 11 - PHẦN III: TRẢ LỜI NGẮN */
+const SSA=PSA(`
+Cho các dấu hiệu sau:\\n(1) Thu nhận các chất từ môi trường.\\n(2) Đào thải các chất.\\n(3) Biến đổi các chất thành chất vô cơ.\\n(4) Tổng hợp và tích lũy năng lượng.\\n(5) Điều hòa.\\nCó bao nhiêu dấu hiệu đặc trưng của quá trình trao đổi chất và chuyển hóa năng lượng ở sinh vật?|4|Có 4 dấu hiệu đúng là (1), (2), (4), (5). Ý (3) sai vì biến đổi chất kèm theo chuyển hóa năng lượng chứ không chỉ tạo chất vô cơ.
+Ghép ví dụ ở cột B với dấu hiệu ở cột A:\\n1. Bài tiết các chất — a. Dạ dày tiết pepsin tiêu hóa protein\\n2. Biến đổi các chất — b. Máu đưa O2 và dinh dưỡng đến tế bào\\n3. Thu nhận các chất — c. Thận thải ure qua nước tiểu\\n4. Vận chuyển các chất — d. Rễ cây hút nước và ion khoáng\\nViết liền mã ghép đúng theo thứ tự 1-2-3-4 (ví dụ: 1a2b3c4d).|1c2a3d4b|1-c (Bài tiết), 2-a (Biến đổi), 3-d (Thu nhận), 4-b (Vận chuyển).
+Cho bảng nồng độ các ion khoáng (M):\\n• Ion A: Đất 0,01 — Trong rễ 0,02 (Cây không cần)\\n• Ion B: Đất 0,03 — Trong rễ 0,05 (Cây cần)\\n• Ion C: Đất 0,04 — Trong rễ 0,004 (Cây cần)\\nCó bao nhiêu loại ion trong bảng trên được rễ cây hấp thụ theo cơ chế chủ động?|1|Chỉ có 1 ion là Ion B được hấp thụ chủ động vì cây cần và nồng độ trong rễ (0,05M) cao hơn ngoài đất (0,03M).
+Cho các điều kiện sau:\\n(1) Cây sống trong điều kiện bị hạn.\\n(2) Cây sống trong điều kiện ngập úng.\\n(3) Cây sống trong điều kiện đất có độ mặn cao.\\n(4) Lượng nước thoát ra ít hơn lượng nước hút vào.\\nCó bao nhiêu trường hợp gây ra trạng thái mất cân bằng nước ở cây?|3|Có 3 trường hợp đúng là (1), (2), (3). Ý (4) là trạng thái cân bằng nước tốt.
+Cho các biện pháp sau để đảm bảo trạng thái cân bằng nước cho cây:\\n(1) Tưới tiêu hợp lí, cung cấp vừa đủ lượng nước cần thiết.\\n(2) Lượng nước cần thay đổi theo loài, theo từng giai đoạn phát triển.\\n(3) Chọn lọc, tạo lai các giống cây trồng chống chịu hạn, mặn, ngập úng.\\n(4) Mùa nắng tưới cố định 3-4 lần/ngày, mùa mưa tưới 1-2 lần/ngày cho mọi loài cây.\\nCó bao nhiêu biện pháp đúng?|3|Có 3 biện pháp đúng là (1), (2), (3). Ý (4) sai vì tưới nước phải tùy theo nhu cầu từng loài và độ ẩm đất.
+Cho các nhận định về việc bón phân cho cây trồng:\\n(1) Bón quá ít không đáp ứng nhu cầu dinh dưỡng làm cây thiếu khoáng, còi cọc.\\n(2) Bón quá nhiều làm cây bị thừa chất và ngộ độc.\\n(3) Bón quá nhiều tiêu diệt vi khuẩn có lợi trong đất, gây ô nhiễm đất và nước.\\n(4) Bón quá ít làm cây chậm lớn dần dẫn đến giảm năng suất.\\nCó bao nhiêu nhận định đúng?|4|Cả 4 nhận định (1), (2), (3), (4) đều đúng.
+Khi nói đến chuỗi truyền electron trong hô hấp hiếu khí ở thực vật, có bao nhiêu phát biểu sau đây đúng?\\n(1) Diễn ra ở màng trong ti thể.\\n(2) Oxy hóa NADH và FADH2 sinh ra từ đường phân và chu trình Krebs để tạo ATP và nước.\\n(3) Không cần sử dụng oxygen.\\n(4) Sinh ra năng lượng ít nhất trong 3 giai đoạn.|2|Có 2 phát biểu đúng là (1) và (2). Ý (3) sai vì cần O2; ý (4) sai vì sinh ra nhiều ATP nhất.
+Khi nói về ảnh hưởng của nhiệt độ đến hô hấp ở thực vật, có bao nhiêu giải thích sau đây đúng?\\n(1) Nhiệt độ tạo năng lượng cung cấp cho các hoạt động của cây non.\\n(2) Nhiệt độ tăng làm cường độ hô hấp tăng, thúc đẩy sự nảy mầm của hạt.\\n(3) Trong giới hạn nhất định phù hợp, khi nhiệt độ tăng thì cường độ hô hấp tăng.\\n(4) Nhiệt độ ảnh hưởng đến hoạt động của các enzyme hô hấp.|3|Có 3 giải thích đúng là (2), (3), (4). Ý (1) sai vì năng lượng do phân giải chất hữu cơ tạo ra.
+Khi nói về ảnh hưởng của hàm lượng CO2 và O2 đến hô hấp ở thực vật, có bao nhiêu giải thích sau đây đúng?\\n(1) Khí O2 là nguyên liệu của hô hấp nên ảnh hưởng trực tiếp đến cường độ hô hấp.\\n(2) Hàm lượng CO2 trong không khí cao sẽ ức chế hô hấp hiếu khí.\\n(3) Khí O2 và CO2 đều là nguyên liệu của hô hấp.\\n(4) Khí O2 và CO2 đều là sản phẩm của hô hấp.|2|Có 2 giải thích đúng là (1) và (2). O2 là nguyên liệu còn CO2 là sản phẩm của hô hấp hiếu khí.
+Về nguyên tắc bảo quản nông sản “cần đưa cường độ hô hấp của nông sản về mức tối thiểu”, có bao nhiêu giải thích sau đây đúng?\\n(1) Giữ chất lượng nông sản và giảm sự hao hụt chất hữu cơ xuống mức thấp nhất.\\n(2) Hô hấp làm tiêu hao năng lượng nên cần bảo quản làm ngừng hẳn hô hấp.\\n(3) Hô hấp sinh quá nhiều năng lượng nên cần ngăn không cho nông sản hô hấp.\\n(4) Hô hấp phân giải chất hữu cơ gây hao hụt nên cần đưa hô hấp về mức thấp nhất.|2|Có 2 giải thích đúng là (1) và (4). Không được làm ngừng hẳn hô hấp vì tế bào nông sản sẽ chết.
+`);
+
+/* ==================== VẬT LÍ 11 ==================== */
+const LP1=P(`
+Một vật dao động điều hòa khi li độ của vật biến thiên theo thời gian theo dạng nào?|Hàm bậc nhất.|Hàm bậc hai.|Hàm sin hoặc cos.|Hàm mũ giảm.|C
+Biên độ dao động của một vật là đại lượng nào sau đây?|Quãng đường vật đi trong một chu kì.|Khoảng cách giữa hai vị trí biên.|Độ lớn li độ cực đại của vật.|Li độ của vật tại thời điểm ban đầu.|C
+Chu kì dao động là khoảng thời gian|Ngắn nhất để trạng thái dao động của vật lặp lại.|Để vật đi từ vị trí cân bằng đến một vị trí biên.|Để vật đi từ biên này đến biên kia.|Để vật đi được quãng đường bằng biên độ.|A
+Tần số dao động cho biết|Số dao động toàn phần thực hiện trong một giây.|Độ lệch lớn nhất khỏi vị trí cân bằng.|Thời gian thực hiện một dao động.|Quãng đường đi được trong một giây.|A
+Hệ thức đúng giữa tần số góc ω và chu kì T là|ω = 2πT.|ω = 2π/T.|ω = T/(2π).|ω = 1/T.|B
+Trong phương trình x = A cos(ωt + φ), pha ban đầu là|A.|ω.|ωt + φ.|φ.|D
+Đơn vị thường dùng của tần số góc là|s.|Hz.|m/s.|rad/s.|D
+Li độ x của vật dao động là|Tọa độ đại số của vật so với vị trí cân bằng trên trục đã chọn.|Tổng quãng đường từ lúc bắt đầu chuyển động.|Độ dài quỹ đạo dao động.|Khoảng cách giữa hai vị trí biên.|A
+Trong phương trình x = A cos(ωt + φ), với A > 0 và ω > 0, đại lượng nào là pha dao động tại thời điểm t?|A cos φ.|ωt.|φ.|ωt + φ.|D
+Hai vật dao động điều hòa có cùng chu kì nhưng khác biên độ. Trong cùng một khoảng thời gian, kết luận nào đúng?|Hai vật thực hiện cùng số chu kì dao động.|Vật có biên độ lớn thực hiện nhiều chu kì hơn.|Vật có biên độ nhỏ thực hiện nhiều chu kì hơn.|Chỉ so sánh được khi biết khối lượng hai vật.|A
+Một vật dao động điều hòa từ biên dương đến biên âm. Khi mô tả chuyển động này, phát biểu nào đúng?|Li độ giảm liên tục, còn khoảng cách đến vị trí cân bằng giảm rồi tăng.|Li độ giảm và khoảng cách đến vị trí cân bằng luôn giảm.|Li độ và khoảng cách đến vị trí cân bằng đều tăng liên tục.|Li độ đổi dấu nên biên độ cũng đổi dấu.|A
+Vật dao động điều hòa theo phương trình x = A cos(ωt + φ). Biểu thức vận tốc là|v = −ωA sin(ωt + φ).|v = ω²A sin(ωt + φ).|v = ωA cos(ωt + φ).|v = −ω²A cos(ωt + φ).|A
+Hệ thức liên hệ gia tốc và li độ trong dao động điều hòa là|a = ωx.|a = −ω²x.|a = ω²x.|a = −ωx.|B
+Một vật dao động điều hòa có biên độ A và tần số góc ω. Tốc độ cực đại là|A/ω.|ω²A.|ωA.|ω/A.|C
+Độ lớn gia tốc cực đại của vật dao động điều hòa là|ω²A.|ωA.|A/ω².|ω²/A.|A
+Khi vật dao động điều hòa đi qua vị trí cân bằng,|Tốc độ cực đại, gia tốc bằng 0.|Vận tốc và gia tốc đều bằng 0.|Vận tốc bằng 0, gia tốc có độ lớn cực đại.|Tốc độ và độ lớn gia tốc đều cực đại.|A
+Tại vị trí biên của dao động điều hòa,|Tốc độ cực đại, gia tốc bằng 0.|Tốc độ bằng một nửa tốc độ cực đại.|Vận tốc và gia tốc đều bằng 0.|Vận tốc bằng 0, độ lớn gia tốc cực đại.|D
+Khi gia tốc của vật dao động điều hòa khác 0, vectơ gia tốc luôn hướng|Theo chiều chuyển động.|Về vị trí cân bằng.|Theo chiều dương của trục tọa độ.|Ra xa vị trí cân bằng.|B
+So với li độ, gia tốc của vật dao động điều hòa|Sớm pha π/2.|Cùng pha.|Ngược pha.|Trễ pha π/2.|C
+Hệ thức độc lập với thời gian của dao động điều hòa là|v² = ω²(A² + x²).|v² = ω(A² − x²).|v² = A² − ω²x².|v² = ω²(A² − x²).|D
+Với x = A cos(ωt + φ), có thể viết v = ωA cos(ωt + φ + π/2). Như vậy, vận tốc|Trễ pha π/2 so với li độ.|Cùng pha với li độ.|Ngược pha với li độ.|Sớm pha π/2 so với li độ.|D
+Một vật dao động điều hòa đang ở x > 0 và có v < 0. Tại thời điểm này, vật|Chậm dần và có gia tốc dương.|Nhanh dần và có gia tốc âm.|Nhanh dần và có gia tốc dương.|Chậm dần và có gia tốc âm.|B
+Vật dao động điều hòa đi từ biên dương về vị trí cân bằng. Trong quá trình này, nhận định nào đúng?|Tốc độ tăng vì vận tốc và gia tốc cùng hướng.|Tốc độ giảm vì vật tiến gần vị trí cân bằng.|Tốc độ không đổi vì chu kì không đổi.|Gia tốc hướng ra biên dương nên vật nhanh dần.|A
+Vật dao động điều hòa đi từ vị trí cân bằng đến biên dương. Vì sao vật chậm dần?|Vì gia tốc luôn bằng 0 trên đoạn đường này.|Vì gia tốc hướng về vị trí cân bằng, ngược chiều vận tốc.|Vì lực kéo về hướng theo chiều chuyển động.|Vì vận tốc và gia tốc đều dương.|B
+Tại một thời điểm, vật dao động điều hòa có li độ âm và đang đi về vị trí cân bằng. Nhận xét nào đúng?|Vận tốc âm, gia tốc dương.|Vận tốc dương, gia tốc âm.|Vận tốc và gia tốc đều dương.|Vận tốc và gia tốc đều âm.|C
+Vật dao động điều hòa vừa đi qua vị trí cân bằng theo chiều âm và đang tiến tới biên âm. Nhận xét nào đúng?|Vật chậm dần vì vận tốc âm và gia tốc dương.|Vật nhanh dần vì gia tốc dương.|Vật nhanh dần vì vận tốc âm.|Vật chuyển động đều vì gia tốc chưa đổi hướng.|A
+Trong một dao động điều hòa, khi độ lớn li độ tăng dần thì|Tốc độ tăng dần và độ lớn gia tốc giảm dần.|Tốc độ và độ lớn gia tốc đều tăng dần.|Tốc độ giảm dần và độ lớn gia tốc tăng dần.|Tốc độ và độ lớn gia tốc đều giảm dần.|C
+Động năng của một vật khối lượng m, chuyển động với tốc độ v, được tính bằng|Wđ = mv².|Wđ = mv/2.|Wđ = m²v/2.|Wđ = mv²/2.|D
+Con lắc lò xo nằm ngang có độ cứng k; x là li độ tính từ vị trí cân bằng. Chọn thế năng bằng 0 tại x = 0. Thế năng của con lắc là|Wt = kx/2.|Wt = kx²/2.|Wt = k²x²/2.|Wt = kx².|B
+Cơ năng của một vật dao động là|Hiệu giữa động năng và thế năng.|Thương của động năng và thế năng.|Tích của động năng và thế năng.|Tổng động năng và thế năng.|D
+Con lắc lò xo dao động điều hòa không ma sát, có độ cứng k và biên độ A. Cơ năng của con lắc là|W = kA²/2.|W = kA/2.|W = kA².|W = kA.|A
+Vật dao động điều hòa không ma sát; chọn thế năng bằng 0 tại vị trí cân bằng. Khi qua vị trí cân bằng,|Động năng bằng 0.|Thế năng cực đại.|Cơ năng bằng 0.|Động năng bằng cơ năng.|D
+Vật dao động điều hòa không ma sát. Ở vị trí biên,|Động năng bằng cơ năng.|Thế năng bằng 0.|Động năng bằng 0.|Cơ năng bằng 0.|C
+Trong dao động điều hòa không ma sát, đại lượng nào được bảo toàn?|Cơ năng.|Thế năng.|Vận tốc.|Động năng.|A
+Một vật dao động điều hòa với chu kì T. Động năng biến thiên tuần hoàn với chu kì|T.|T/2.|2T.|T/4.|B
+Đối với cùng một con lắc lò xo lí tưởng, cơ năng tỉ lệ thuận với|Biên độ.|Căn bậc hai của biên độ.|Nghịch đảo biên độ.|Bình phương biên độ.|D
+Con lắc lò xo lí tưởng chuyển động từ một vị trí biên về vị trí cân bằng. Quá trình năng lượng nào diễn ra?|Động năng chuyển thành thế năng, cơ năng tăng.|Động năng và thế năng cùng giảm.|Thế năng chuyển thành nhiệt năng, cơ năng giảm.|Thế năng chuyển thành động năng, cơ năng không đổi.|D
+Con lắc lò xo lí tưởng đi từ vị trí cân bằng ra vị trí biên. Vì sao động năng giảm nhưng cơ năng không giảm?|Vì khối lượng vật tăng lên.|Vì động năng chuyển hóa thành thế năng.|Vì thế năng cũng giảm cùng động năng.|Vì lực cản liên tục cung cấp năng lượng.|B
+Tại biên của một con lắc lò xo lí tưởng, vật có vận tốc bằng 0. Phát biểu nào đúng về năng lượng?|Thế năng bằng 0 vì vật đang dừng tức thời.|Cả động năng và cơ năng đều bằng 0.|Cơ năng bằng 0 nhưng động năng khác 0.|Động năng bằng 0 nhưng cơ năng tồn tại dưới dạng thế năng.|D
+Một con lắc lò xo lí tưởng đi qua vị trí cân bằng. Chọn thế năng bằng 0 tại vị trí này. Nhận xét nào đúng?|Cơ năng hoàn toàn là động năng.|Động năng bằng 0 vì lực đàn hồi bằng 0.|Cơ năng bằng 0 vì thế năng bằng 0.|Cơ năng đạt giá trị nhỏ nhất trong chu kì.|A
+Vì sao động năng của một vật dao động điều hòa đạt cực đại hai lần trong một chu kì dao động?|Vì vật qua vị trí cân bằng hai lần và đạt tốc độ cực đại ở cả hai lần.|Vì vật dừng lại hai lần tại vị trí cân bằng.|Vì cơ năng được cung cấp hai lần trong mỗi chu kì.|Vì động năng cực đại ở cả hai vị trí biên.|A
+Nguyên nhân trực tiếp làm dao động cơ tắt dần trong môi trường có lực cản là|Cơ năng bị tiêu hao do lực cản.|Tần số riêng tăng liên tục.|Lực kéo về mất đi sau mỗi chu kì.|Khối lượng vật giảm dần.|A
+Đặc điểm của dao động tắt dần là|Cơ năng không đổi.|Biên độ tăng dần theo thời gian.|Biên độ giảm dần theo thời gian.|Vật luôn chuyển động theo một chiều.|C
+Dao động cưỡng bức được tạo ra bởi|Một lực không đổi theo thời gian.|Một ngoại lực biến thiên tuần hoàn theo thời gian.|Một xung lực duy nhất lúc ban đầu.|Chỉ lực ma sát tác dụng lên vật.|B
+Ở trạng thái ổn định dưới tác dụng của ngoại lực điều hòa, tần số dao động cưỡng bức bằng|Tần số của ngoại lực.|Tần số riêng của hệ trong mọi trường hợp.|Tổng tần số riêng và tần số ngoại lực.|Hiệu tần số riêng và tần số ngoại lực.|A
+Đối với cùng một hệ cưỡng bức và cùng biên độ ngoại lực, lực cản càng nhỏ thì khi cộng hưởng,|Biên độ càng nhỏ.|Tần số ngoại lực luôn bằng 0.|Biên độ càng lớn.|Vật không thể dao động.|C
+Trong dao động tắt dần của một hệ không được cung cấp thêm năng lượng, cơ năng|Tăng dần.|Luôn bằng 0.|Giảm dần.|Giữ nguyên.|C
+Bộ phận giảm xóc của xe chủ yếu sử dụng|Dao động tự do không ma sát.|Cộng hưởng để tăng rung.|Sự tắt dần của dao động để giảm rung.|Ngoại lực tuần hoàn để tăng biên độ.|C
+Tần số riêng của một hệ dao động là tần số|Luôn bằng tần số quay của động cơ bên ngoài.|Của mọi ngoại lực tác dụng lên hệ.|Luôn thay đổi theo biên độ lực cưỡng bức.|Dao động tự do do đặc tính của hệ quyết định.|D
+Trong những trường hợp cộng hưởng sau, trường hợp nào cộng hưởng có hại?|Hiện tượng cộng hưởng ở lò vi sóng.|Hiện tượng cộng hưởng do đoàn người bước đều qua cầu, làm cầu rung lắc mạnh.|Hiện tượng cộng hưởng ở hộp đàn ghita.|Hiện tượng cộng hưởng âm thanh trong thính phòng.|B
+`);
+const LP2=PDS(`
+Câu 1 (Đúng/Sai): Xét một vật dao động điều hòa trên trục Ox, gốc tọa độ tại vị trí cân bằng.|Li độ là tọa độ của vật so với vị trí cân bằng trên trục đã chọn.|Biên độ là khoảng cách giữa hai vị trí biên của quỹ đạo dao động.|Khi vật đi từ biên dương đến biên âm, li độ giảm liên tục nhưng khoảng cách đến vị trí cân bằng giảm rồi tăng.|Vì li độ đổi dấu trong quá trình dao động nên biên độ cũng đổi dấu theo.|ĐSĐS
+Câu 2 (Đúng/Sai): Hai vật dao động điều hòa có cùng chu kì nhưng khác biên độ.|Chu kì là thời gian vật đi từ vị trí cân bằng đến một vị trí biên.|Tần số là số dao động toàn phần thực hiện trong một giây.|Vật có biên độ lớn hơn phải thực hiện nhiều chu kì hơn trong cùng một khoảng thời gian.|Dù biên độ khác nhau, hai vật vẫn có cùng tần số vì chu kì bằng nhau.|SĐSĐ
+Câu 3 (Đúng/Sai): Cho phương trình dao động điều hòa: x = A cos(ωt + φ). Hãy đánh giá tính đúng/sai các nhận định:|Biên độ A cho biết khoảng cách lớn nhất từ vị trí cân bằng đến vị trí dao động.|Khi x = 0, vật không chuyển động.|Đại lượng (ωt + φ) là pha dao động, đơn vị là radian.|Nếu tại t = 0 vật ở biên dương thì pha ban đầu φ = 0.|ĐSĐĐ
+Câu 4 (Đúng/Sai): Khi nghiên cứu dao động điều hòa trên một đường thẳng, học sinh dùng đồ thị li độ theo thời gian x(t).|Trục thời gian cho biết thời điểm, còn trục li độ cho biết vị trí đại số của vật so với vị trí cân bằng.|Đường cong hình sin trên đồ thị x(t) chính là quỹ đạo hình sin của vật trong không gian.|Trên đoạn đồ thị nằm dưới trục thời gian và đi lên về phía trục đó, vật chuyển động theo chiều âm, ra xa vị trí cân bằng.|Hai lần liên tiếp đồ thị cắt đường x = 0 ứng với vật qua vị trí cân bằng theo hai chiều ngược nhau, nên trạng thái dao động chưa lặp lại.|ĐSSĐ
+Câu 5 (Đúng/Sai): Một con lắc dao động trong môi trường có lực cản và không được cung cấp thêm năng lượng. Quan sát thấy biên độ giảm dần.|Dao động có biên độ giảm dần theo thời gian được gọi là dao động tắt dần.|Trong dao động tắt dần không được cung cấp thêm năng lượng, cơ năng luôn được bảo toàn.|Cơ năng giảm không có nghĩa năng lượng biến mất, vì năng lượng được chuyển sang nội năng và các dạng khác.|Với cùng trạng thái ban đầu, nếu giảm lực cản và hệ vẫn dao động thì dao động kéo dài hơn.|ĐSĐĐ
+Câu 6 (Đúng/Sai): Dao động tắt dần là dao động có đặc điểm:|Tần số giảm dần theo thời gian.|Cơ năng giảm dần theo thời gian.|Biên độ dao động giảm dần theo thời gian.|Ma sát và lực cản càng lớn thì dao động tắt dần càng nhanh.|SĐĐĐ
+Câu 7 (Đúng/Sai): Tìm hiểu về ứng dụng của dao động cưỡng bức. Hãy đọc các nhận định sau và xác định Đúng hay Sai:|Khi một võng điện được bật để đung đưa đều đặn, võng thực hiện dao động cưỡng bức với tần số bằng tần số của motor điện.|Khi một vật dao động cưỡng bức, tần số dao động luôn bằng tần số riêng của vật đó.|Dao động của thân xe buýt khi xe nổ máy tại bến xe là dao động cưỡng bức, do lực dao động tuần hoàn từ động cơ gây ra.|Dao động cưỡng bức chỉ xuất hiện khi có ngoại lực tác động liên tục và có tính tuần hoàn vào hệ dao động.|ĐSĐĐ
+Câu 8 (Đúng/Sai): Tìm hiểu về hiện tượng cộng hưởng xảy ra trong cuộc sống và đánh giá lợi/hại:|Hộp đàn ghi ta giúp khuếch đại âm thanh từ dây đàn nhờ hiện tượng cộng hưởng, đây là một ví dụ có hại cần tránh.|Cộng hưởng có thể gây hại nếu không được kiểm soát, ví dụ như cầu bị sập do đoàn người bước đều gây rung động cộng hưởng.|Trong lò vi sóng, cộng hưởng giữa sóng điện từ và phân tử nước giúp truyền năng lượng hiệu quả, làm nóng thức ăn – đó là một ứng dụng có lợi.|Khi âm thanh phát ra từ loa có tần số trùng với tần số riêng của li thủy tinh, li có thể vỡ do cộng hưởng làm biên độ dao động tăng mạnh.|SĐĐĐ
+`);
+
+const IMG_H4=`<svg viewBox="0 0 460 175" style="width:100%;max-width:440px;display:block;margin:10px auto;background:#f8fafc;border-radius:12px;padding:6px">
+  <g stroke="#0f172a" stroke-width="1.6" fill="none">
+    <polyline points="35,15 35,135 205,135"/>
+    <path d="M40,22 Q85,125 135,125 L195,125" stroke="#dc2626"/>
+    <path d="M35,135 Q85,42 135,42 L195,42" stroke="#2563eb"/>
+    <polyline points="255,15 255,135 425,135"/>
+    <path d="M260,22 Q300,62 345,62 L415,62" stroke="#2563eb"/>
+    <path d="M255,135 Q300,122 345,122 L415,122" stroke="#dc2626"/>
+  </g>
+  <g font-size="11" fill="#0f172a" font-family="sans-serif">
+    <text x="150" y="36" font-weight="700">HI</text>
+    <text x="140" y="118">H₂ + I₂</text>
+    <text x="95" y="152">Thời gian</text>
+    <text x="115" y="168" font-weight="700">(a)</text>
+    <text x="365" y="55" font-weight="700">HI</text>
+    <text x="355" y="115">H₂ + I₂</text>
+    <text x="315" y="152">Thời gian</text>
+    <text x="335" y="168" font-weight="700">(b)</text>
+  </g>
+</svg>`;
+
+const IMG_H39=`<svg viewBox="0 0 260 170" style="width:100%;max-width:250px;display:block;margin:10px auto;background:#f8fafc;border-radius:12px;padding:6px">
+  <path d="M95,55 L135,55 L160,150 L70,150 Z" fill="#e0f2fe" stroke="#0f172a" stroke-width="2"/>
+  <path d="M30,30 L115,30 L115,140" fill="none" stroke="#334155" stroke-width="3"/>
+  <circle cx="103" cy="52" r="10" fill="#94a3b8" stroke="#334155"/>
+  <circle cx="125" cy="52" r="10" fill="#94a3b8" stroke="#334155"/>
+  <g font-size="12" font-weight="600" fill="#0f172a" font-family="sans-serif">
+    <text x="32" y="22">SO₂</text>
+    <text x="145" y="25">Bông tẩm dd E</text>
+    <line x1="142" y1="27" x2="128" y2="45" stroke="#0f172a"/>
+    <text x="172" y="115">SO₂ khô</text>
+    <line x1="168" y1="112" x2="130" y2="120" stroke="#0f172a"/>
+  </g>
+</svg>`;
+
+const IMG_HH20=`<svg viewBox="0 0 540 135" style="width:100%;max-width:480px;display:block;margin:10px auto;background:#f8fafc;border-radius:12px;padding:6px">
+  <rect x="255" y="26" width="265" height="62" fill="#fff" stroke="#334155" stroke-width="1.5" rx="4"/>
+  <path d="M20,42 A22,22 0 0,0 20,98 L195,98 C215,98 220,76 240,76 L515,76 L515,64 L240,64 C220,64 215,42 195,42 Z" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <line x1="92" y1="42" x2="92" y2="98" stroke="#475569" stroke-width="4"/>
+  <g fill="#cbd5e1" stroke="#475569" stroke-width="1">
+    <circle cx="35" cy="60" r="6"/><circle cx="48" cy="55" r="7"/><circle cx="65" cy="58" r="6"/><circle cx="78" cy="54" r="6"/>
+    <circle cx="32" cy="75" r="7"/><circle cx="46" cy="72" r="6"/><circle cx="60" cy="74" r="7"/><circle cx="75" cy="70" r="6"/>
+    <circle cx="38" cy="88" r="6"/><circle cx="54" cy="87" r="6"/><circle cx="70" cy="86" r="6"/><circle cx="82" cy="84" r="5"/>
+  </g>
+  <g fill="#eab308" stroke="#854d0e" stroke-width="1">
+    <ellipse cx="110" cy="56" rx="8" ry="5"/><ellipse cx="128" cy="54" rx="8" ry="5"/><ellipse cx="146" cy="57" rx="8" ry="5"/><ellipse cx="164" cy="55" rx="8" ry="5"/><ellipse cx="182" cy="58" rx="7" ry="5"/>
+    <ellipse cx="115" cy="70" rx="8" ry="5"/><ellipse cx="134" cy="69" rx="8" ry="5"/><ellipse cx="152" cy="71" rx="8" ry="5"/><ellipse cx="170" cy="69" rx="8" ry="5"/><ellipse cx="188" cy="72" rx="7" ry="5"/>
+    <ellipse cx="108" cy="85" rx="8" ry="5"/><ellipse cx="126" cy="84" rx="8" ry="5"/><ellipse cx="144" cy="86" rx="8" ry="5"/><ellipse cx="162" cy="84" rx="8" ry="5"/><ellipse cx="180" cy="85" rx="8" ry="5"/>
+  </g>
+  <g stroke="#0f172a" stroke-width="1.2" font-size="11" fill="#0f172a" font-family="sans-serif" text-anchor="middle">
+    <line x1="275" y1="64" x2="275" y2="56"/><text x="275" y="50" stroke="none">1</text>
+    <line x1="302" y1="64" x2="302" y2="56"/><text x="302" y="50" stroke="none">2</text>
+    <line x1="329" y1="64" x2="329" y2="56"/><text x="329" y="50" stroke="none">3</text>
+    <line x1="356" y1="64" x2="356" y2="56"/><text x="356" y="50" stroke="none">4</text>
+    <line x1="383" y1="64" x2="383" y2="56"/><text x="383" y="50" stroke="none">5</text>
+    <line x1="410" y1="64" x2="410" y2="56"/><text x="410" y="50" stroke="none">6</text>
+    <line x1="437" y1="64" x2="437" y2="56"/><text x="437" y="50" stroke="none">7</text>
+    <line x1="464" y1="64" x2="464" y2="56"/><text x="464" y="50" stroke="none">8 cm</text>
+  </g>
+  <ellipse cx="445" cy="70" rx="16" ry="5" fill="#dc2626"/>
+  <g font-size="12" font-weight="600" fill="#0f172a" font-family="sans-serif">
+    <text x="40" y="22">Vôi xút</text><line x1="60" y1="26" x2="55" y2="50" stroke="#0f172a"/>
+    <text x="18" y="122">Lưới kim loại</text><line x1="75" y1="110" x2="90" y2="96" stroke="#0f172a"/>
+    <text x="125" y="122">Hạt nảy mầm</text><line x1="155" y1="110" x2="150" y2="92" stroke="#0f172a"/>
+    <text x="200" y="22">Ống mao dẫn</text><line x1="235" y1="26" x2="245" y2="63" stroke="#0f172a"/>
+    <text x="395" y="122">Giọt nước màu</text><line x1="440" y1="110" x2="445" y2="77" stroke="#0f172a"/>
+  </g>
+</svg>`;
+
+const S={
+  sinh:{
+    n:"Sinh học 11",ic:"🧬",sub:"Full TN + Đ/S + Trả lời ngắn",ac:"#10b981",
+    g:{
+      "Phần I.1: Bài 1 – Khái quát (TN)":SB1,
+      "Phần I.2: Bài 2,3 – Nước & Khoáng (TN)":SB23,
+      "Phần I.3: Hô hấp thực vật (TN)":SHH,
+      "Phần II: Đúng / Sai":SDS,
+      "Phần III: Trả lời ngắn":SSA
+    }
+  },
+  hoa:{
+    n:"Hoá học 11",ic:"⚗️",sub:"TN + Đ/S + Trả lời ngắn + Tự luận",ac:"#38bdf8",
+    g:{
+      "Phần I: Trắc nghiệm":HP1,
+      "Phần II: Đúng / Sai":HP2,
+      "Phần III: Trả lời ngắn":HP3,
+      "Phần IV: Tự luận":HP4
+    }
+  },
+  li:{
+    n:"Vật lí 11",ic:"⚡",sub:"Dao động điều hoà & Đúng / Sai",ac:"#f59e0b",
+    g:{
+      "Phần 1: Trắc nghiệm nhiều lựa chọn":LP1,
+      "Phần 2: Đúng – Sai":LP2
+    }
+  },
+  en:{
+    n:"Tiếng Anh 11",ic:"🇬🇧",sub:"Unit 1 · Unit 2 · Unit 3",ac:"#ec4899",
+    g:{
+      "Unit 1":U1,
+      "Unit 2":U2,
+      "Unit 3":U3
+    }
+  }
+};
+
+let imgOk="1000272141.jpg",imgNo="1000272142.jpg";
+try{
+  imgOk=localStorage.getItem("custom_img_ok")||"1000272141.jpg";
+  imgNo=localStorage.getItem("custom_img_no")||"1000272142.jpg";
+}catch(e){}
+
+function upImg(type,input){
+  const f=input.files&&input.files[0];
+  if(!f)return;
+  const r=new FileReader();
+  r.onload=e=>{
+    const img=new Image();
+    img.onload=()=>{
+      const c=document.createElement("canvas"),max=360;
+      let w=img.width,h=img.height;
+      if(w>h&&w>max){h*=max/w;w=max}else if(h>max){w*=max/h;h=max}
+      c.width=w;c.height=h;
+      c.getContext("2d").drawImage(img,0,0,w,h);
+      const d=c.toDataURL("image/jpeg",.82);
+      if(type==="ok"){imgOk=d;try{localStorage.setItem("custom_img_ok",d)}catch(err){}}
+      else{imgNo=d;try{localStorage.setItem("custom_img_no",d)}catch(err){}}
+      home();
+    };
+    img.src=e.target.result;
+  };
+  r.readAsDataURL(f);
+}
+
+/* PROFILE & AVATAR */
+const AV_LIST=["⚡","🥷","👑","🐉","🦅","🦊","👾","🐺","🔥","💎","🚀","🎯"];
+const renderAv=a=>(a&&(a.startsWith("data:image/")||a.startsWith("http")))?`<img src="${a}" class="av-img-inline" alt="av">`:(a||"⚡");
+
+let myProfile={
+  name:localStorage.getItem("user_name")||"Chiến binh 11",
+  av:localStorage.getItem("user_av")||"⚡"
+};
+let oppProfile={name:"Đối thủ",av:"🥷"};
+
+function saveProfile(name,av){
+  if(name) myProfile.name=name.trim().slice(0,18);
+  if(av) myProfile.av=av;
+  try{
+    localStorage.setItem("user_name",myProfile.name);
+    localStorage.setItem("user_av",myProfile.av);
+  }catch(e){}
+  home();
+}
+
+let curSelAv=myProfile.av;
+function chooseAv(a){
+  curSelAv=a;
+  document.querySelectorAll(".av-opt").forEach(el=>el.classList.toggle("sel",el.textContent===a));
+  const preview=document.getElementById("prof_av_preview");
+  if(preview) preview.innerHTML=renderAv(a);
+}
+
+function upUserAv(input){
+  const f=input.files&&input.files[0];
+  if(!f)return;
+  const r=new FileReader();
+  r.onload=e=>{
+    const img=new Image();
+    img.onload=()=>{
+      const c=document.createElement("canvas"),size=96;
+      c.width=size;c.height=size;
+      const ctx=c.getContext("2d");
+      const minDim=Math.min(img.width,img.height);
+      const sx=(img.width-minDim)/2;
+      const sy=(img.height-minDim)/2;
+      ctx.drawImage(img,sx,sy,minDim,minDim,0,0,size,size);
+      const d=c.toDataURL("image/jpeg",0.75);
+      curSelAv=d;
+      document.querySelectorAll(".av-opt").forEach(el=>el.classList.remove("sel"));
+      const preview=document.getElementById("prof_av_preview");
+      if(preview) preview.innerHTML=renderAv(d);
+    };
+    img.src=e.target.result;
+  };
+  r.readAsDataURL(f);
+}
+
+function openProfileModal(){
+  curSelAv=myProfile.av;
+  app.innerHTML=`<button class="back" onclick="home()">← Quay lại sảnh</button><h1 class="pg-t">👤 Hồ Sơ Đấu Sĩ</h1>
+  <div class="c">
+    <b>1. Tên hiển thị trên BXH & Solo:</b>
+    <div style="margin:8px 0 16px">
+      <input class="sa-in" id="profNameIn" type="text" maxlength="18" value="${esc(myProfile.name)}">
+    </div>
+    <b>2. Avatar của bạn:</b>
+    <div class="av-preview-box">
+      <div class="prof-av" id="prof_av_preview">${renderAv(myProfile.av)}</div>
+      <div>
+        <label class="upload-btn-label">
+          📷 Tải ảnh từ máy
+          <input type="file" accept="image/*" hidden onchange="upUserAv(this)">
+        </label>
+        <div style="font-size:.76rem;color:#94a3b8;margin-top:4px">Nén tự động siêu nhẹ < 4KB, đồng bộ tức thì!</div>
+      </div>
+    </div>
+    <b>Hoặc chọn biểu tượng có sẵn:</b>
+    <div class="av-grid" id="av_grid">
+      ${AV_LIST.map(a=>`<button class="av-opt ${a===curSelAv?'sel':''}" onclick="chooseAv('${a}')">${a}</button>`).join("")}
+    </div>
+    <button class="go" onclick="saveProfile(document.getElementById('profNameIn').value,curSelAv)">Lưu hồ sơ</button>
+  </div>`;
+}
+
+/* REALTIME LEADERBOARD */
+const DEFAULT_LEADERBOARD=[
+  {name:"Trần Nguyên Hoàng",av:"👑",score:87,sub:"Sinh học 11",time:Date.now()-600000},
+  {name:"Học Bá Chuyên Hoá",av:"⚗️",score:61,sub:"Hoá học 11",time:Date.now()-1800000},
+  {name:"Nguyễn Vũ Phong",av:"⚡",score:58,sub:"Vật lí 11",time:Date.now()-3600000},
+  {name:"Trần Mai Linh",av:"🇬🇧",score:55,sub:"Tiếng Anh 11",time:Date.now()-7200000},
+  {name:"Đỗ Duy Nam",av:"🐉",score:50,sub:"Solo 1v1",time:Date.now()-14400000}
+];
+
+let globalLeaderboard=[];
+try{
+  const cached=localStorage.getItem("nhquiz_leaderboard_cache");
+  globalLeaderboard=cached?JSON.parse(cached):DEFAULT_LEADERBOARD;
+}catch(e){
+  globalLeaderboard=DEFAULT_LEADERBOARD;
+}
+
+let activeFilter="all",hubPeer=null,onlinePeersCount=1;
+
+function timeAgo(ts){
+  const diff=Math.floor((Date.now()-ts)/1000);
+  if(diff<60) return "vừa xong";
+  if(diff<3600) return Math.floor(diff/60)+" phút trước";
+  if(diff<86400) return Math.floor(diff/3600)+" giờ trước";
+  return Math.floor(diff/86400)+" ngày trước";
+}
+
+function saveAndBroadcastScore(subTitle,scored){
+  if(!scored||scored<=0)return;
+  const newEntry={name:myProfile.name,av:myProfile.av,score:scored,sub:subTitle,time:Date.now()};
+  const exIdx=globalLeaderboard.findIndex(e=>e.name===myProfile.name&&e.sub===subTitle);
+  if(exIdx!==-1){
+    if(scored>globalLeaderboard[exIdx].score) globalLeaderboard[exIdx]=newEntry;
+  }else{
+    globalLeaderboard.push(newEntry);
+  }
+  globalLeaderboard.sort((a,b)=>b.score-a.score);
+  globalLeaderboard=globalLeaderboard.slice(0,30);
+  try{localStorage.setItem("nhquiz_leaderboard_cache",JSON.stringify(globalLeaderboard))}catch(e){}
+
+  if(hubPeer){
+    try{
+      if(hubPeer.hubConns) hubPeer.hubConns.forEach(c=>{if(c.open)c.send({t:"lb_sync",list:globalLeaderboard,online:onlinePeersCount})});
+      if(hubPeer.clientConn&&hubPeer.clientConn.open) hubPeer.clientConn.send({t:"lb_post",entry:newEntry});
+    }catch(err){}
+  }
+}
+
+function initLeaderboardSwarm(){
+  if(hubPeer)return;
+  const HUB_ID="nhquiz_leaderboard_hub_11";
+  const tryHost=new Peer(HUB_ID);
+  tryHost.hubConns=[];
+  tryHost.on('open',()=>{
+    hubPeer=tryHost;
+    onlinePeersCount=1;
+    updateOnlineBadge();
+    tryHost.on('connection',c=>{
+      tryHost.hubConns.push(c);
+      onlinePeersCount=tryHost.hubConns.filter(x=>x.open).length+1;
+      updateOnlineBadge();
+      c.on('open',()=>c.send({t:"lb_sync",list:globalLeaderboard,online:onlinePeersCount}));
+      c.on('data',d=>{
+        if(d.t==="lb_post"&&d.entry) saveAndBroadcastScore(d.entry.sub,d.entry.score);
+      });
+      c.on('close',()=>{
+        tryHost.hubConns=tryHost.hubConns.filter(x=>x!==c);
+        onlinePeersCount=tryHost.hubConns.filter(x=>x.open).length+1;
+        updateOnlineBadge();
+      });
+    });
+  });
+
+  tryHost.on('error',()=>{
+    try{tryHost.destroy()}catch(e){}
+    const client=new Peer();
+    client.on('open',()=>{
+      hubPeer=client;
+      const connToHub=client.connect(HUB_ID,{reliable:true});
+      client.clientConn=connToHub;
+      connToHub.on('data',d=>{
+        if(d.t==="lb_sync"&&Array.isArray(d.list)){
+          globalLeaderboard=d.list;
+          try{localStorage.setItem("nhquiz_leaderboard_cache",JSON.stringify(globalLeaderboard))}catch(e){}
+          if(d.online) onlinePeersCount=d.online;
+          updateOnlineBadge();
+          renderLeaderboardList();
+        }
+      });
+    });
+  });
+}
+
+function updateOnlineBadge(){
+  const el=document.getElementById("online_cnt");
+  if(el) el.textContent=Math.max(1,onlinePeersCount);
+}
+
+function setRankFilter(f){
+  activeFilter=f;
+  document.querySelectorAll(".rank-chip").forEach(c=>c.classList.remove("on"));
+  const btn=document.getElementById("rf_"+f);
+  if(btn) btn.classList.add("on");
+  renderLeaderboardList();
+}
+
+function renderLeaderboardList(){
+  const box=document.getElementById("rank_list_box");
+  if(!box)return;
+  let items=[...globalLeaderboard];
+  if(activeFilter==="sinh") items=items.filter(x=>x.sub.includes("Sinh"));
+  else if(activeFilter==="hoa") items=items.filter(x=>x.sub.includes("Hoá"));
+  else if(activeFilter==="li") items=items.filter(x=>x.sub.includes("Vật lí"));
+  else if(activeFilter==="en") items=items.filter(x=>x.sub.includes("Tiếng Anh"));
+  else if(activeFilter==="solo") items=items.filter(x=>x.sub.includes("Solo"));
+
+  if(items.length===0){
+    box.innerHTML=`<div style="text-align:center;padding:16px;color:#94a3b8;font-size:.84rem">Chưa có ai ghi danh bảng này. Hãy là người đầu tiên leo Top! 🚀</div>`;
+    return;
+  }
+
+  box.innerHTML=items.slice(0,8).map((it,idx)=>{
+    const topCls=idx===0?"top1":idx===1?"top2":idx===2?"top3":"";
+    const posIcon=idx===0?"🥇":idx===1?"🥈":idx===2?"🥉":`#${idx+1}`;
+    return `<div class="rank-item ${topCls}">
+      <div class="rank-pos">${posIcon}</div>
+      <div class="rank-av">${renderAv(it.av)}</div>
+      <div class="rank-info">
+        <div class="rank-name">${esc(it.name)}</div>
+        <div class="rank-sub">${esc(it.sub)} · ${timeAgo(it.time||Date.now())}</div>
+      </div>
+      <div class="rank-score">${it.score}<small>câu đúng</small></div>
+    </div>`;
+  }).join("");
+}
+
+const app=document.getElementById("app"),sh=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=t=>t.replace(/&/g,"&amp;").replace(/</g,"&lt;");
+const fmtQ=t=>esc(t).replace("{{IMG_HH20}}",IMG_HH20).replace("{{IMG_H4}}",IMG_H4).replace("{{IMG_H39}}",IMG_H39);
+const cnt=k=>Object.values(S[k].g).reduce((n,g)=>n+g.length,0);
+const DN=`<div class="c dn"><h2>☕ Quỹ donate cho admin</h2><p>Nếu web giúp ích cho bạn, ủng hộ admin một ly cà phê nhé!</p><p>Ngân hàng: <b>MB Bank</b></p><div class="stk" id="stk">0395814635</div><p>Chủ tài khoản: <b>TRAN NGUYEN HOANG</b></p><button id="cpb" onclick="cp()">📋 Sao chép STK</button></div>`;
+function cp(){const t="0395814635",b=document.getElementById("cpb"),ok=()=>{b.textContent="✅ Đã sao chép";setTimeout(()=>b.textContent="📋 Sao chép STK",1800)};try{navigator.clipboard.writeText(t).then(ok,f)}catch(e){f()}function f(){const r=document.createRange();r.selectNodeContents(document.getElementById("stk"));const s=getSelection();s.removeAllRanges();s.addRange(r);try{document.execCommand("copy");ok()}catch(e){}}}
+
+let sub,sel,Q,i,lock=0,tries=0,score=0,dsSel=[],mode="hard",tmr=null;
+let isSolo=false,peer=null,conn=null,oppScore=0,oppIndex=0,oppFinished=false,soloBotTmr=null,soloSubject="all",soloNum=15,oppNoti="";
+
+try{mode=localStorage.getItem("quiz_mode")||"hard"}catch(e){}
+function setMode(m,fromSetup){
+  mode=m;
+  try{localStorage.setItem("quiz_mode",m)}catch(e){}
+  fromSetup?setup():home();
+}
+function modeBar(fromSetup){
+  return `<div class="seg">
+    <button class="seg-b ${mode==="hard"?"on-hard":""}" onclick="setMode('hard',${fromSetup})">
+      <b>🔥 Chế độ Sinh Tử</b>
+      <small>Sai 1 câu làm lại từ đầu</small>
+    </button>
+    <button class="seg-b ${mode==="bede"?"on-bede":""}" onclick="setMode('bede',${fromSetup})">
+      <b>💅 Chế độ Bê Đê</b>
+      <small>Sai xem đáp án & làm tiếp</small>
+    </button>
+  </div>`;
+}
+
+const bk=()=>"best_"+sub,gbKey=k=>{try{return +localStorage.getItem("best_"+k)||0}catch(e){return 0}},gb=()=>gbKey(sub),sb=n=>{try{if(n>gb())localStorage.setItem(bk(),n)}catch(e){}};
+
+function home(){
+  clearTimeout(tmr);clearInterval(soloBotTmr);isSolo=false;
+  if(conn){try{conn.close()}catch(e){}conn=null}
+  if(peer){try{peer.destroy()}catch(e){}peer=null}
+  initLeaderboardSwarm();
+
+  const nav=`<div class="nav">
+    <div class="brand">
+      <div class="brand-ic">🎓</div>
+      <div class="brand-txt">
+        <b>Ôn Thi Giữa Kì 1</b>
+        <small>Lớp 11 · Chương trình 2018</small>
+      </div>
+    </div>
+    <button class="prof-pill" onclick="openProfileModal()" title="Đổi tên & Avatar">
+      <div class="prof-av">${renderAv(myProfile.av)}</div>
+      <span>${esc(myProfile.name)}</span>
+    </button>
+  </div>`;
+
+  const arena=`<div class="c arena">
+    <div class="arena-top">
+      <span class="arena-tag">⚔️ ĐẤU TRƯỜNG SOLO 1V1</span>
+      <span style="font-size:.76rem;color:#fbcfe8;font-weight:600">Đồng bộ Fast-Sync</span>
+    </div>
+    <p class="arena-sub">Ghép cặp đua tốc độ trực tiếp với bạn bè đang ở sảnh — Cùng bộ đề, hiện avatar đối thủ theo thời gian thực.</p>
+    <div class="arena-acts">
+      <button class="abtn pri" onclick="openSoloMenu('quick')">🎲 Ghép ngẫu nhiên</button>
+      <button class="abtn sec" onclick="openSoloMenu('room')">🔑 Tạo / Vào phòng</button>
+    </div>
+  </div>`;
+
+  const bento=`<div class="sec-lbl"><span>📚 Chọn môn ôn luyện</span><span>4 môn học</span></div>
+  <div class="bento">
+    ${Object.keys(S).map(k=>`<button class="sj-card" style="--ac:${S[k].ac}" onclick="setup('${k}')">
+      <div class="sj-row">
+        <div class="sj-ic">${S[k].ic}</div>
+        <div class="sj-title">
+          <b>${S[k].n}</b>
+          <small>${S[k].sub}</small>
+        </div>
+      </div>
+      <div class="sj-foot">
+        <span class="sj-best">🏆 Kỷ lục: ${gbKey(k)}</span>
+        <span class="sj-cnt">${cnt(k)} câu</span>
+      </div>
+    </button>`).join("")}
+  </div>`;
+
+  const rankBox=`<div class="c rank-card">
+    <div class="rank-head">
+      <span class="rank-badge">🏆 BXH CAO THỦ REAL-TIME</span>
+      <span class="live-dot">🟢 Online: <b id="online_cnt">${onlinePeersCount}</b></span>
+    </div>
+    <div class="rank-chips">
+      <button class="rank-chip on" id="rf_all" onclick="setRankFilter('all')">Tất cả</button>
+      <button class="rank-chip" id="rf_sinh" onclick="setRankFilter('sinh')">Sinh học</button>
+      <button class="rank-chip" id="rf_hoa" onclick="setRankFilter('hoa')">Hoá học</button>
+      <button class="rank-chip" id="rf_li" onclick="setRankFilter('li')">Vật lí</button>
+      <button class="rank-chip" id="rf_en" onclick="setRankFilter('en')">Tiếng Anh</button>
+      <button class="rank-chip" id="rf_solo" onclick="setRankFilter('solo')">Solo 1v1</button>
+    </div>
+    <div class="rank-list" id="rank_list_box"></div>
+  </div>`;
+
+  const utils=`<div class="util-grid">
+    <div class="c" style="margin-bottom:0">
+      <b style="font-size:.92rem">🖼️ Ảnh hiệu ứng Đúng / Sai</b>
+      <div class="img-cfg">
+        <div class="img-box"><div>✅ Khi Đúng</div><img src="${imgOk}" alt="Ảnh 1" onerror="this.style.opacity=.25"><label>📂 Ảnh 1<input type="file" accept="image/*" hidden onchange="upImg('ok',this)"></label></div>
+        <div class="img-box"><div>❌ Khi Sai</div><img src="${imgNo}" alt="Ảnh 2" onerror="this.style.opacity=.25"><label>📂 Ảnh 2<input type="file" accept="image/*" hidden onchange="upImg('no',this)"></label></div>
+      </div>
+    </div>
+    ${DN.replace('class="c dn"','class="c dn" style="margin-bottom:0"')}
+  </div>`;
+
+  app.innerHTML=nav+modeBar(false)+arena+bento+rankBox+utils;
+  renderLeaderboardList();
+}
+
+function openSoloMenu(action){
+  app.innerHTML=`<button class="back" onclick="home()">← Quay lại sảnh</button><h1 class="pg-t">⚔️ Sảnh Ghép Solo 1v1</h1>
+  <div class="c arena">
+    <b>1. Chọn môn đấu Solo:</b>
+    <div class="chips">
+      <button class="chip ${soloSubject==="all"?"on":""}" onclick="setSoloSub('all')">Tổng hợp 4 môn</button>
+      <button class="chip ${soloSubject==="sinh"?"on":""}" onclick="setSoloSub('sinh')">🧬 Sinh học</button>
+      <button class="chip ${soloSubject==="hoa"?"on":""}" onclick="setSoloSub('hoa')">⚗️ Hoá học</button>
+      <button class="chip ${soloSubject==="li"?"on":""}" onclick="setSoloSub('li')">⚡ Vật lí</button>
+      <button class="chip ${soloSubject==="en"?"on":""}" onclick="setSoloSub('en')">🇬🇧 Tiếng Anh</button>
+    </div>
+    <b>2. Số câu đua tốc độ:</b>
+    <div class="chips">
+      <button class="chip ${soloNum===10?"on":""}" onclick="soloNum=10;openSoloMenu('${action}')">10 câu</button>
+      <button class="chip ${soloNum===15?"on":""}" onclick="soloNum=15;openSoloMenu('${action}')">15 câu</button>
+      <button class="chip ${soloNum===20?"on":""}" onclick="soloNum=20;openSoloMenu('${action}')">20 câu</button>
+    </div>
+    <hr style="border:0;border-top:1px solid rgba(255,255,255,.12);margin:14px 0">
+    ${action==='quick'?`
+      <button class="abtn pri" style="width:100%;padding:14px" onclick="startMatchmaking()">🔥 Tìm đối thủ ở sảnh ngay</button>
+    `:`
+      <button class="abtn pri" style="width:100%;padding:13px;margin-bottom:10px" onclick="createRoom()">➕ Tạo phòng mới (Lấy mã 4 số)</button>
+      <div class="sa-wrap">
+        <input class="sa-in" id="roomCodeIn" type="text" placeholder="Nhập mã 4 số của bạn bè..." maxlength="6">
+        <button class="sa-btn" onclick="joinRoom(document.getElementById('roomCodeIn').value)">Vào đấu</button>
+      </div>
+    `}
+  </div>`;
+}
+
+function setSoloSub(subName){soloSubject=subName;openSoloMenu(document.getElementById("roomCodeIn")?"room":"quick")}
+
+function getSubjectPool(subKey){
+  if(subKey==="en") return [...U1,...U2,...U3];
+  if(subKey==="hoa") return [...HP1,...HP2,...HP3];
+  if(subKey==="sinh") return [...SB1,...SB23,...SHH,...SDS,...SSA];
+  if(subKey==="li") return [...LP1,...LP2];
+  return [...U1,...U2,...U3,...HP1,...SB1,...SB23,...SHH,...LP1];
+}
+
+function generateQuestionIndices(subKey,count){
+  const pool=getSubjectPool(subKey);
+  const arr=[...Array(pool.length).keys()];
+  return sh(arr).slice(0,Math.min(count,pool.length));
+}
+function buildQuestionsFromIndices(subKey,indices){
+  const pool=getSubjectPool(subKey);
+  return indices.map(idx=>pool[idx]);
+}
+
+function setupConnEvents(c,isHost){
+  c.on('open',()=>{
+    if(!isHost) c.send({t:"client_join",name:myProfile.name,av:myProfile.av});
+  });
+  c.on('data',data=>{
+    if(isHost&&data.t==="client_join"){
+      oppProfile={name:data.name||"Đối thủ",av:data.av||"🥷"};
+      const idxs=generateQuestionIndices(soloSubject,soloNum);
+      c.send({t:"game_start",s:soloSubject,ids:idxs,name:myProfile.name,av:myProfile.av});
+      startSoloGame(buildQuestionsFromIndices(soloSubject,idxs),oppProfile,false);
+    }else if(!isHost&&data.t==="game_start"){
+      oppProfile={name:data.name||"Chủ phòng",av:data.av||"👑"};
+      startSoloGame(buildQuestionsFromIndices(data.s,data.ids),oppProfile,false);
+    }else if(data.t==="prog"){
+      oppScore=data.score;oppIndex=data.i;
+      oppNoti=data.ok?`⚡ ${oppProfile.name} vừa đúng câu ${data.i}!`:`❌ ${oppProfile.name} vừa sai câu ${data.i}!`;
+      updateSoloHUD();
+    }else if(data.t==="end"){
+      oppFinished=true;oppScore=data.score;
+      oppNoti=`🏁 ${oppProfile.name} đã hoàn thành bài!`;
+      updateSoloHUD();
+    }
+  });
+}
+
+function createRoom(){
+  const code=Math.floor(1000+Math.random()*9000);
+  const roomId="nhquiz_"+code;
+  app.innerHTML=`<div class="c arena" style="text-align:center;padding:26px 16px">
+    <span class="arena-tag">PHÒNG ĐẤU SOLO</span>
+    <h2 style="margin:10px 0 4px">Mã phòng: <span style="color:#f472b6;font-size:1.85rem;letter-spacing:2px">${code}</span></h2>
+    <p style="color:#cbd5e1;font-size:.88rem">Gửi mã này cho bạn bè để vào chiến cùng lúc!</p>
+    <div class="bar" style="max-width:260px;margin:14px auto"><i class="bede" style="width:100%"></i></div>
+    <button class="chip" onclick="navigator.clipboard.writeText('${code}');alert('Đã chép mã: ${code}')">📋 Sao chép mã</button>
+    <button class="chip" style="margin-left:8px" onclick="home()">Huỷ phòng</button>
+  </div>`;
+  if(peer){try{peer.destroy()}catch(e){}peer=null}
+  peer=new Peer(roomId);
+  peer.on('connection',c=>{conn=c;setupConnEvents(conn,true)});
+  peer.on('error',()=>{alert("Không thể khởi tạo phòng. Vui lòng thử lại!");home()});
+}
+
+function joinRoom(code){
+  code=(code||"").trim();
+  if(!code){alert("Vui lòng nhập mã phòng!");return}
+  const roomId="nhquiz_"+code;
+  app.innerHTML=`<div class="c arena" style="text-align:center;padding:26px 16px">
+    <h2 style="margin:0 0 6px">Đang kết nối vào phòng ${code}...</h2>
+    <p style="color:#94a3b8">Đồng bộ đề thi siêu tốc...</p>
+    <div class="bar" style="max-width:260px;margin:14px auto"><i class="bede" style="width:100%"></i></div>
+    <button class="chip" onclick="home()">Huỷ kết nối</button>
+  </div>`;
+  if(peer){try{peer.destroy()}catch(e){}peer=null}
+  peer=new Peer();
+  peer.on('open',()=>{
+    conn=peer.connect(roomId,{reliable:true});
+    setupConnEvents(conn,false);
+  });
+  peer.on('error',()=>{alert("Không tìm thấy mã phòng này hoặc phòng đã đóng!");home()});
+}
+
+function startMatchmaking(){
+  app.innerHTML=`<div class="c arena" style="text-align:center;padding:30px 16px">
+    <div style="font-size:2.6rem;margin-bottom:8px">📡</div>
+    <h2 style="margin:0 0 8px;color:#fbcfe8">Đang tìm đối thủ cùng sảnh...</h2>
+    <p style="color:#94a3b8;font-size:.9rem">Hệ thống Fast-Sync đang quét người chơi online...</p>
+    <div class="bar" style="max-width:280px;margin:18px auto"><i class="bede" style="width:100%"></i></div>
+    <button class="chip" onclick="home()">Huỷ tìm trận</button>
+  </div>`;
+  if(peer){try{peer.destroy()}catch(e){}peer=null}
+  const lobbyId="nhquiz_quick_lobby_11";
+  const tempPeer=new Peer();
+  let matched=false;
+  tempPeer.on('open',()=>{
+    const c=tempPeer.connect(lobbyId,{reliable:true});
+    const timer=setTimeout(()=>{
+      if(!matched){
+        try{c.close()}catch(e){}
+        try{tempPeer.destroy()}catch(e){}
+        becomeLobbyHost(lobbyId);
+      }
+    },1800);
+    c.on('open',()=>{matched=true;clearTimeout(timer);peer=tempPeer;conn=c;setupConnEvents(conn,false)});
+    c.on('error',()=>{if(!matched){clearTimeout(timer);try{tempPeer.destroy()}catch(e){}becomeLobbyHost(lobbyId)}});
+  });
+  tempPeer.on('error',()=>{if(!matched){try{tempPeer.destroy()}catch(e){}becomeLobbyHost(lobbyId)}});
+}
+
+function becomeLobbyHost(lobbyId){
+  if(peer){try{peer.destroy()}catch(e){}peer=null}
+  peer=new Peer(lobbyId);
+  let botTmr=setTimeout(()=>{
+    if(!conn||!conn.open){
+      const randAv=AV_LIST[Math.floor(Math.random()*AV_LIST.length)];
+      const randName="Học sinh 11 ("+(["Đắk Lắk","Hà Nội","TP.HCM","Đà Nẵng","Cần Thơ"][Math.floor(Math.random()*5)])+")";
+      const idxs=generateQuestionIndices(soloSubject,soloNum);
+      startSoloGame(buildQuestionsFromIndices(soloSubject,idxs),{name:randName,av:randAv},true);
+    }
+  },4200);
+  peer.on('connection',c=>{clearTimeout(botTmr);conn=c;setupConnEvents(conn,true)});
+  peer.on('error',()=>{
+    clearTimeout(botTmr);
+    const randAv=AV_LIST[Math.floor(Math.random()*AV_LIST.length)];
+    const idxs=generateQuestionIndices(soloSubject,soloNum);
+    startSoloGame(buildQuestionsFromIndices(soloSubject,idxs),{name:"Chiến thần 11",av:randAv},true);
+  });
+}
+
+function startSoloGame(questions,opponent,isBot){
+  clearTimeout(tmr);clearInterval(soloBotTmr);
+  isSolo=true;Q=questions;i=0;score=0;lock=0;tries++;
+  oppScore=0;oppIndex=0;oppFinished=false;oppNoti="";oppProfile=opponent;
+  if(isBot){
+    soloBotTmr=setInterval(()=>{
+      if(oppFinished||!isSolo)return;
+      oppIndex++;
+      const isOk=Math.random()<0.82;
+      if(isOk) oppScore++;
+      oppNoti=isOk?`⚡ ${oppProfile.name} vừa đúng câu ${oppIndex}!`:`❌ ${oppProfile.name} vừa sai câu ${oppIndex}!`;
+      if(oppIndex>=Q.length){oppFinished=true;oppNoti=`🏁 ${oppProfile.name} đã hoàn thành bài!`;clearInterval(soloBotTmr)}
+      updateSoloHUD();
+    },Math.floor(2200+Math.random()*1800));
+  }
+  show();
+}
+
+function sendSoloProg(isOk){
+  if(conn&&conn.open) try{conn.send({t:"prog",score:score,i:i+1,ok:isOk})}catch(e){}
+}
+
+function updateSoloHUD(){
+  const mySc=document.getElementById("pvp_my_sc"),opSc=document.getElementById("pvp_opp_sc");
+  const myB=document.getElementById("pvp_my_b"),opB=document.getElementById("pvp_opp_b");
+  const noti=document.getElementById("pvp_noti");
+  if(mySc) mySc.textContent=score;
+  if(opSc) opSc.textContent=oppScore;
+  if(myB) myB.style.width=(i/Q.length*100)+"%";
+  if(opB) opB.style.width=(oppIndex/Q.length*100)+"%";
+  if(noti&&oppNoti) noti.innerHTML=esc(oppNoti);
+}
+
+function setup(k){
+  clearTimeout(tmr);clearInterval(soloBotTmr);isSolo=false;
+  if(k){sub=k;sel=new Set(Object.keys(S[k].g))}
+  const ks=Object.keys(S[sub].g);
+  const selCnt=ks.filter(g=>sel.has(g)).reduce((n,g)=>n+S[sub].g[g].length,0);
+  app.innerHTML=`<button class="back" onclick="home()">← Về sảnh chính</button>
+  <h1 class="pg-t">${S[sub].ic} ${S[sub].n}</h1>
+  ${modeBar(true)}
+  <div class="c">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <b>Chọn chuyên đề / dạng bài</b>
+      <button class="prof-btn" onclick="selAll()">Chọn tất cả</button>
+    </div>
+    <div class="chips">${ks.map(g=>`<button class="chip ${sel.has(g)?"on":""}" onclick="tog('${g}')">${g} (${S[sub].g[g].length})</button>`).join("")}</div>
+    <div class="s" style="margin:0 0 14px">🏆 Kỷ lục cá nhân: <b>${gb()}</b> câu · Đã chọn: <b>${selCnt}</b> câu</div>
+    <button class="go ${mode==="bede"?"nx bede":""}" onclick="start()">Bắt đầu làm bài (${selCnt} câu)</button>
+  </div>`;
+}
+function selAll(){sel=new Set(Object.keys(S[sub].g));setup()}
+function tog(g){sel.has(g)?(sel.size>1&&sel.delete(g)):sel.add(g);setup()}
+function start(){
+  clearTimeout(tmr);clearInterval(soloBotTmr);isSolo=false;
+  Q=sh(Object.keys(S[sub].g).filter(g=>sel.has(g)).flatMap(g=>S[sub].g[g]));
+  i=0;score=0;lock=0;tries++;show();
+}
+function cont(){
+  clearTimeout(tmr);
+  if(i>=Q.length-1)end();
+  else{i++;lock=0;show()}
+}
+function nextOrEnd(){
+  score++;
+  if(!isSolo) sb(score);
+  if(isSolo) sendSoloProg(true);
+  const fb=document.getElementById("fb");
+  if(fb){
+    fb.innerHTML=`<div class="fb ok-fb">🎉 <b>Chúc mừng! Đáp án chính xác!</b><img class="r-img" src="${imgOk}" alt="Chúc mừng" onerror="this.style.display='none'"><small style="color:#a7f3d0">Đang chuyển sang câu tiếp theo...</small></div>`;
+    fb.scrollIntoView({behavior:"smooth",block:"nearest"});
+  }
+  tmr=setTimeout(()=>cont(),1150);
+}
+function wrongAction(msgHtml){
+  if(!isSolo) sb(score);
+  if(isSolo) sendSoloProg(false);
+  const fb=document.getElementById("fb");
+  const imgTag=`<img class="r-img" src="${imgNo}" alt="Sai rồi" onerror="this.style.display='none'">`;
+  if(isSolo||mode==="bede"){
+    const isLast=(i===Q.length-1);
+    fb.innerHTML=`<div class="fb no-fb">${msgHtml}${imgTag}${isSolo?"⚔️ <b>Đấu Solo:</b> Tiếp tục đua tốc độ nào!":"💅 <b>Chế độ Bê Đê:</b> Vẫn giữ nguyên điểm!"}</div><button class="nx ${isSolo?'':'bede'}" onclick="cont()">${isLast?"Xem tổng kết 🏁":"Làm tiếp câu sau ➡️"}</button>`;
+  }else{
+    fb.innerHTML=`<div class="fb no-fb">${msgHtml}${imgTag}Bạn đã vượt qua <b>${score}</b> câu liên tiếp.</div><button class="nx" onclick="start()">Làm lại từ đầu 🔁</button>`;
+  }
+  fb.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+
+function show(){
+  lock=0;
+  const q=Q[i];
+  let head="";
+  if(isSolo){
+    head=`<div class="pvp-hud">
+      <div class="pvp-user me">
+        <div class="pvp-av-hud">${renderAv(myProfile.av)}</div>
+        <div class="pvp-meta">
+          <span class="pvp-name">${esc(myProfile.name)}</span>
+          <div class="pvp-score" id="pvp_my_sc">${score}</div>
+          <div class="pvp-bar me"><i id="pvp_my_b" style="width:${i/Q.length*100}%"></i></div>
+        </div>
+      </div>
+      <div class="pvp-vs">VS</div>
+      <div class="pvp-user opp">
+        <div class="pvp-av-hud">${renderAv(oppProfile.av)}</div>
+        <div class="pvp-meta">
+          <span class="pvp-name">${esc(oppProfile.name)}</span>
+          <div class="pvp-score" id="pvp_opp_sc">${oppScore}</div>
+          <div class="pvp-bar opp"><i id="pvp_opp_b" style="width:${oppIndex/Q.length*100}%"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="pvp-noti" id="pvp_noti">${oppNoti||"⚔️ Trận đấu đang diễn ra! Đua tốc độ & số câu đúng!"}</div>`;
+  }else{
+    const mTag=mode==="bede"?`<span class="badge bede" style="margin:0">💅 Bê Đê</span>`:`<span class="badge" style="margin:0">🔥 Sinh Tử</span>`;
+    head=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <button class="back" style="margin:0" onclick="setup()">← Đổi phần</button>
+      ${mTag}
+    </div>
+    <div class="top"><span>📝 Câu <b>${i+1}</b>/${Q.length} · ✅ Đúng: <b>${score}</b></span><span>Lần: <b>${tries}</b> · 🏆 <b>${gb()}</b></span></div>
+    <div class="bar"><i class="${mode==="bede"?"bede":""}" style="width:${i/Q.length*100}%"></i></div>`;
+  }
+
+  if(q.t==="ds"){
+    dsSel=[null,null,null,null];
+    app.innerHTML=head+`<div class="c"><span class="badge">Đúng / Sai (chọn đủ 4 ý a, b, c, d)</span><p class="q">${fmtQ(q.q)}</p>`+
+      q.s.map((st,idx)=>`<div class="ds-item" id="dsi_${idx}"><div class="ds-txt"><b>${"abcd"[idx]})</b> ${esc(st)}</div><div class="ds-btns"><button class="ds-b" id="dsb_${idx}_1" onclick="pickDS(${idx},true)">Đúng</button><button class="ds-b" id="dsb_${idx}_0" onclick="pickDS(${idx},false)">Sai</button></div></div>`).join("")+
+      `<button class="go" onclick="subDS()">Nộp đáp án</button><div id="fb"></div></div>`;
+  }else if(q.t==="sa"){
+    app.innerHTML=head+`<div class="c"><span class="badge">Trả lời ngắn</span><p class="q">${fmtQ(q.q)}</p><div class="sa-wrap"><input class="sa-in" id="sain" type="text" placeholder="Nhập đáp án..." onkeydown="if(event.key==='Enter')subSA()"><button class="sa-btn" onclick="subSA()">Trả lời</button></div><div id="fb"></div></div>`;
+    setTimeout(()=>{const el=document.getElementById("sain");if(el)el.focus()},50);
+  }else{
+    app.innerHTML=head+`<div class="c"><p class="q">${fmtQ(q.q)}</p>${q.o.map((o,j)=>`<button class="o" onclick="pick(${j})"><span class="k">${"ABCD"[j]}</span><span class="ot">${esc(o)}</span></button>`).join("")}<div id="fb"></div></div>`;
+  }
+}
+
+function pick(j){
+  if(lock)return;lock=1;
+  const q=Q[i],b=document.querySelectorAll(".o");
+  b[q.a].classList.add("ok");
+  if(j===q.a) nextOrEnd();
+  else{
+    b[j].classList.add("no");
+    wrongAction(`❌ Sai rồi! Đáp án đúng là: <b>${"ABCD"[q.a]}. ${esc(q.o[q.a])}</b>`);
+  }
+}
+function pickDS(idx,val){
+  if(lock)return;
+  dsSel[idx]=val;
+  document.getElementById(`dsb_${idx}_1`).classList.toggle("sel",val===true);
+  document.getElementById(`dsb_${idx}_0`).classList.toggle("sel",val===false);
+}
+function subDS(){
+  if(lock)return;
+  if(dsSel.some(v=>v===null)){alert("Vui lòng chọn Đúng hoặc Sai cho cả 4 ý a, b, c, d!");return}
+  lock=1;
+  const q=Q[i];let allOk=true;
+  q.a.forEach((ans,idx)=>{
+    const item=document.getElementById(`dsi_${idx}`);
+    const corrBtn=document.getElementById(`dsb_${idx}_${ans?1:0}`);
+    corrBtn.classList.add("ans");
+    if(dsSel[idx]===ans) item.classList.add("ok");
+    else{item.classList.add("no");allOk=false}
+  });
+  if(allOk) nextOrEnd();
+  else{
+    const keyStr=q.a.map((ans,idx)=>`${"abcd"[idx]}) <b>${ans?"Đúng":"Sai"}</b>`).join(" · ");
+    wrongAction(`❌ Chưa chính xác! Đáp án đúng: ${keyStr}`);
+  }
+}
+function normSA(v){return v.trim().replace(/\s+/g,"").replace(/,/g,".").replace(/-/g,"").toLowerCase()}
+function subSA(){
+  if(lock)return;
+  const inp=document.getElementById("sain");
+  if(!inp||!inp.value.trim())return;
+  lock=1;
+  const q=Q[i],u=normSA(inp.value),ans=normSA(q.a);
+  if(u===ans){inp.classList.add("ok");nextOrEnd()}
+  else{
+    inp.classList.add("no");
+    wrongAction(`❌ Sai rồi! Đáp án đúng là: <b>${esc(q.a)}</b>${q.h?`<br><small>${esc(q.h)}</small>`:""}`);
+  }
+}
+
+function end(){
+  clearTimeout(tmr);clearInterval(soloBotTmr);
+  if(isSolo){
+    if(conn&&conn.open) try{conn.send({t:"end",score:score})}catch(e){}
+    saveAndBroadcastScore("Solo 1v1",score);
+    let resTitle="🤝 HOÀ NHAU!",resImg=imgOk,resColor="#fde047";
+    if(score>oppScore){resTitle="🏆 BẠN CHIẾN THẮNG!";resImg=imgOk;resColor="#38bdf8"}
+    else if(score<oppScore){resTitle="💀 BẠN THẤT BẠI!";resImg=imgNo;resColor="#ef4444"}
+    app.innerHTML=`<div class="c arena" style="text-align:center;padding:24px 16px">
+      <h1 style="color:${resColor};margin-bottom:6px;font-size:1.5rem">${resTitle}</h1>
+      <img class="r-img" src="${resImg}" alt="Kết quả" onerror="this.style.display='none'">
+      <div style="font-size:1.2rem;font-weight:800;margin:14px 0;display:flex;justify-content:center;align-items:center;gap:14px">
+        <span style="color:#38bdf8;display:inline-flex;align-items:center;gap:6px">
+          <span style="width:28px;height:28px;display:inline-block;border-radius:8px;overflow:hidden">${renderAv(myProfile.av)}</span>
+          ${esc(myProfile.name)}: <b>${score}</b>
+        </span>
+        <span style="color:#64748b">vs</span>
+        <span style="color:#ec4899;display:inline-flex;align-items:center;gap:6px">
+          <span style="width:28px;height:28px;display:inline-block;border-radius:8px;overflow:hidden">${renderAv(oppProfile.av)}</span>
+          ${esc(oppProfile.name)}: <b>${oppScore}</b>
+        </span>
+      </div>
+      <p style="color:#cbd5e1;font-size:.88rem">Tổng số câu đua: <b>${Q.length}</b> câu · Đã cập nhật BXH Real-time!</p>
+      <button class="abtn pri" style="width:100%;padding:13px;margin-top:10px" onclick="home()">Quay lại sảnh chính</button>
+    </div>`;
+  }else{
+    saveAndBroadcastScore(S[sub].n,score);
+    const pct=Math.round(score/Q.length*100);
+    app.innerHTML=`<div class="c" style="text-align:center">
+      <h1 class="pg-t">🎉 Hoàn thành bài ôn tập!</h1>
+      <img class="r-img" src="${imgOk}" alt="Hoàn thành" onerror="this.style.display='none'">
+      <p>${mode==="bede"?`💅 Chế độ Bê Đê: Bạn trả lời đúng <b>${score}/${Q.length}</b> câu (${pct}%).`:`🔥 Chế độ Sinh Tử: Đúng liên tiếp cả <b>${Q.length}</b> câu sau ${tries} lần thử.`}</p>
+      <p style="color:#34d399;font-weight:700;font-size:.88rem">⚡ Điểm đã được phát sóng lên Bảng Xếp Hạng Real-time!</p>
+      <button class="nx ${mode==="bede"?"bede":""}" onclick="tries=0;start()">Làm lại (xáo trộn mới)</button>
+      <div class="chips" style="justify-content:center;margin-top:12px">
+        <button class="chip" onclick="setup()">Chọn phần khác</button>
+        <button class="chip" onclick="home()">Về trang chủ</button>
+      </div>
+    </div>`;
+  }
+}
+home();
+</script></body></html>
